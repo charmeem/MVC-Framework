@@ -27,10 +27,10 @@ public function outputView( )
     $view = new ViewManager('home','layouts');
 
     //Defining properties on the fly using __set() magic function
-    $view->student_section = remove_unwanted_slashes(APP_PATH . '/app/controllers/studentController.php');
-    $view->teacher_section = remove_unwanted_slashes(APP_PATH . '/app/controllers/teacherController.php');
-    $view->course_section = remove_unwanted_slashes(APP_PATH . '/app/controllers/courseController.php');
-    $view->css_path = remove_unwanted_slashes(APP_URI . '/public/css/main.css');
+    $view->student_section =APP_PATH . '/app/controllers/studentController.php';
+    $view->teacher_section = APP_PATH . '/app/controllers/teacherController.php';
+    $view->course_section = APP_PATH . '/app/controllers/courseController.php';
+    $view->css_path = APP_URI . '/public/css/main.css';
 
     $view->render();
 }

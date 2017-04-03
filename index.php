@@ -12,7 +12,7 @@ define('APP_PATH', dirname(__FILE__));
 define('APP_FOLDER', dirname($_SERVER['SCRIPT_NAME']));
 
 // URL path to the app (i.e. http://localhost/webapp)
-define('APP_URI',remove_unwanted_slashes('http://' . $_SERVER['SERVER_NAME'] . APP_FOLDER));
+define('APP_URI',('http://' . $_SERVER['SERVER_NAME'] . APP_FOLDER));
 
 require_once APP_PATH . '/core/controllers/baseController.php' ;
 require_once APP_PATH . '/app/controllers/HomeController.php' ;
@@ -37,6 +37,9 @@ $controller = new $class_name($options);
 //-----------------------------------------------------------------------------
 // Outputs the view
 //-----------------------------------------------------------------------------
+
+// Sets the path to the stylesheet for home page
+//$css_path = APP_URI . '/public/css/main.css';
 
 $controller->outputView();
 
