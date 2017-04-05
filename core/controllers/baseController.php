@@ -23,6 +23,8 @@
               throw new Exception("No options were supplied for the room.");
           }
       }
+	  
+	  /**
      /**
       * Load view's markup'
       *

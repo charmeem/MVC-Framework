@@ -16,6 +16,8 @@ define('APP_URI',('http://' . $_SERVER['SERVER_NAME'] . APP_FOLDER));
 
 require_once APP_PATH . '/core/controllers/baseController.php' ;
 require_once APP_PATH . '/app/controllers/HomeController.php' ;
+require_once APP_PATH . '/app/controllers/studentController.php' ;
+
 require_once APP_PATH . '/core/views/viewManager.php' ;
 
 //-----------------------------------------------------------------------------
@@ -26,10 +28,13 @@ require_once APP_PATH . '/core/views/viewManager.php' ;
 $uri_array = parse_uri();
 $class_name = get_controller_classname($uri_array);
 $options = $uri_array;
+//var_dump($options);
 // Sets a default view if nothing is passed in the URI (i.e. on the home page)
 if (empty($class_name)) {
     $class_name = 'HomeController';
-}
+} else {
+         $class_name = $class_name . "Controller";
+		}
 
 // Tries to initialize the requested view
 $controller = new $class_name($options);
@@ -37,9 +42,6 @@ $controller = new $class_name($options);
 //-----------------------------------------------------------------------------
 // Outputs the view
 //-----------------------------------------------------------------------------
-
-// Sets the path to the stylesheet for home page
-//$css_path = APP_URI . '/public/css/main.css';
 
 $controller->outputView();
 
@@ -71,6 +73,7 @@ function parse_uri( )
     if (empty($uri_array[count($uri_array)-1])) {
         array_pop($uri_array);
     }
+	var_dump($uri_array);
     return $uri_array;
 }
 

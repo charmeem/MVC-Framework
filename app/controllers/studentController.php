@@ -24,8 +24,7 @@ return TRUE;
 */
 public function outputView( )
 {
-$view = new ViewManager('student', 'student');
-
-$view->render();
+    $view = new ViewManager('student');
+    $view->render();
 }
 }

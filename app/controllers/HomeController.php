@@ -24,14 +24,25 @@ public function __construct( )
 */
 public function outputView( )
 {
-    $view = new ViewManager('home','layouts');
+    $view = new ViewManager('home');
 
     //Defining properties on the fly using __set() magic function
-    $view->student_section =APP_PATH . '/app/controllers/studentController.php';
-    $view->teacher_section = APP_PATH . '/app/controllers/teacherController.php';
-    $view->course_section = APP_PATH . '/app/controllers/courseController.php';
-    $view->css_path = APP_URI . '/public/css/main.css';
+	// make a controller factory 
+    //$view->student_section =APP_URI. '\app\views\student\student.php';
+	$view->student_section = handle_form_submission();
+	//$controller = ControllerFactory::className('student');
+	//$controller = new StudentController($options);
+	//$controller->outputView();
+    $view->teacher_section = APP_URI . '\app\controllers\teacherController.php';
+    $view->course_section = APP_URI . '\app\controllers\courseController.php';
 
     $view->render();
 }
+
+public function handle_form_submission( )
+{
+header('Location: ' . APP_URI . 'student');
+exit;
+}
+
 }

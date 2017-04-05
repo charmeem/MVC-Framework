@@ -11,7 +11,7 @@
 class ViewManager
 {
     protected $view,
-	          $dir,
+	          $css_path,
               $vars = array();
 /**
 * Initializes the view
@@ -19,14 +19,12 @@ class ViewManager
 * @param $view array The view slug
 * @return void
 */
-public function __construct( $view=NULL, $dir )
+public function __construct( $view=NULL)
 {
     if (!$view) {
     throw new Exception("No view argument was supplied.");
     }
     $this->view = $view;
-	$this->dir = $dir;
-	
 }
 /**
 * Collect dynamic properties and stores into $vars array
@@ -50,8 +48,12 @@ public function render()
     // Converts $vars array to individual variables
     extract($this->vars);
     // Checks to make sure the requested view exists
-    $view_filepath = APP_PATH . '/app/views/' . $this->dir . '/' . $this->view . '.php';
-    if (!file_exists($view_filepath)) {
+    $view_filepath = APP_PATH . '/app/views/' . $this->view . '/' . $this->view . '.php';
+    
+	//Sets the path to the stylesheet for home page
+	$css_path = APP_URI . '/public/css/main.css';
+ 
+ if (!file_exists($view_filepath)) {
         throw new Exception("That view file doesn't exist.");
     }
     require_once $view_filepath;
