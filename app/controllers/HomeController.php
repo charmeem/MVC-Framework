@@ -10,7 +10,7 @@ class HomeController extends BaseController
 /**
 * Overrides the parent constructor to avoid an error
 *
-* @return bool TRUE
+* @return boolean TRUE
 */
 public function __construct( )
 {
@@ -27,22 +27,26 @@ public function outputView( )
     $view = new ViewManager('home');
 
     //Defining properties on the fly using __set() magic function
+	
+	// Hardcoding variables used in <a> links in home view file.
+    $view->student_section =APP_URI. '\student';
+    $view->teacher_section = APP_URI . '\teacher';
+    $view->course_section = APP_URI . '\course';
+
+	//$view->student_section = $this->handle_form_submission();
 	// make a controller factory 
-    //$view->student_section =APP_URI. '\app\views\student\student.php';
-	$view->student_section = handle_form_submission();
 	//$controller = ControllerFactory::className('student');
 	//$controller = new StudentController($options);
 	//$controller->outputView();
-    $view->teacher_section = APP_URI . '\app\controllers\teacherController.php';
-    $view->course_section = APP_URI . '\app\controllers\courseController.php';
-
+    
     $view->render();
 }
 
-public function handle_form_submission( )
+/*
+protected function handle_form_submission( )
 {
-header('Location: ' . APP_URI . 'student');
+header('Location: ' . APP_URI . '/student', FALSE);
 exit;
 }
-
+*/
 }

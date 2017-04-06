@@ -17,6 +17,8 @@ define('APP_URI',('http://' . $_SERVER['SERVER_NAME'] . APP_FOLDER));
 require_once APP_PATH . '/core/controllers/baseController.php' ;
 require_once APP_PATH . '/app/controllers/HomeController.php' ;
 require_once APP_PATH . '/app/controllers/studentController.php' ;
+require_once APP_PATH . '/app/controllers/teacherController.php' ;
+require_once APP_PATH . '/app/controllers/courseController.php' ;
 
 require_once APP_PATH . '/core/views/viewManager.php' ;
 
@@ -43,7 +45,8 @@ $controller = new $class_name($options);
 // Outputs the view
 //-----------------------------------------------------------------------------
 
-$controller->outputView();
+//$controller->outputView();
+$controller->handleAction();
 
 //-----------------------------------------------------------------------------
 // Function declarations
@@ -73,7 +76,7 @@ function parse_uri( )
     if (empty($uri_array[count($uri_array)-1])) {
         array_pop($uri_array);
     }
-	var_dump($uri_array);
+	//var_dump($uri_array);
     return $uri_array;
 }
 

@@ -9,7 +9,10 @@
  <body>
   
   <header>
-   <h1>Congradulations! You have Successfully performed ADD action</h1>
+   <h1>Welcome to the Course Ware section of virtual CAMPUS</h1>
+   <p class="tagline">
+     Here You can add New Courses, list, search, edit and delete the records.
+   </p><!--/.tagline-->
   </header>
   <!--<a href = "<?php echo $add_course; ?>"> Go to Add Student Section </a> -->
   <footer>
