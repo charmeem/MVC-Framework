@@ -1,6 +1,6 @@
 <?php
 /**
- * Generates output for the Home view
+ * Default Home Controller
  *
  * @author     Muhammad Mubashir Mufti <mmufti@hotmail.com>
  */
@@ -8,23 +8,25 @@
 class HomeController extends BaseController
 {
 /**
-* Overrides the parent constructor to avoid an error
+* constructor
 *
 * @return boolean TRUE
 */
-public function __construct( )
+public function __construct( $options )
 {
-    return TRUE;
+    if (!is_array($options)) {
+        throw new Exception("No options were supplied for the room.");
+    }
 }
-
+	 
 /**
-* Loads and outputs the view's markup
+* Loads and outputs view's markup
 *
 * @return void
 */
-public function outputView( )
+public function handleController($class_name, $options )
 {
-    $view = new ViewManager('home');
+    $view = new ViewManager($class_name, $options);
 
     //Defining properties on the fly using __set() magic function
 	
@@ -33,20 +35,7 @@ public function outputView( )
     $view->teacher_section = APP_URI . '\teacher';
     $view->course_section = APP_URI . '\course';
 
-	//$view->student_section = $this->handle_form_submission();
-	// make a controller factory 
-	//$controller = ControllerFactory::className('student');
-	//$controller = new StudentController($options);
-	//$controller->outputView();
-    
-    $view->render();
+	$view->render();
 }
 
-/*
-protected function handle_form_submission( )
-{
-header('Location: ' . APP_URI . '/student', FALSE);
-exit;
-}
-*/
 }

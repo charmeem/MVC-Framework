@@ -1,30 +1,32 @@
 <?php
 /**
- * An abstract Class
+ * View Handler
  *
- * An abstract Core Controller Class setting template for the child controller Classes
+ * Class to generate Views by rendering Markup file
  *
- * @package    abstract
+ * @package    viewManager
  * @license    http://opensource.org/licenses/gpl-license.php  GNU Public License
  * @author     Muhammad Mubashir Mufti <mmufti@hotmail.com>
  */
 class ViewManager
 {
-    protected $view,
+    protected $class_name,
 	          $css_path,
+			  $options = array(),
               $vars = array();
 /**
 * Initializes the view
 *
-* @param $view array The view slug
-* @return void
+* @param $class_name $options 
+*
 */
-public function __construct( $view=NULL)
+public function __construct( $class_name, $options)
 {
-    if (!$view) {
-    throw new Exception("No view argument was supplied.");
+    if (!$class_name) {
+    throw new Exception("No class argument was supplied.");
     }
-    $this->view = $view;
+    $this->class_name = $class_name;
+	$this->options = $options;
 }
 /**
 * Collect dynamic properties and stores into $vars array
@@ -39,17 +41,22 @@ public function __set( $key, $var )
 }
 
 /**
-* Loads and parses the selected view file with markup
+* Loads and parses the selected view file with Markup
 *
-* @return mixed A string of markup if $print is TRUE or void
 */
 public function render()
 {
     // Converts $vars array to individual variables
     extract($this->vars);
-    // Checks to make sure the requested view exists
-    $view_filepath = APP_PATH . '/app/views/' . $this->view . '/' . $this->view . '.php';
-    
+	
+    //Generate Controller View 
+	if (empty($this->options)) {
+    $view_filepath = APP_PATH . '/app/views/' . $this->class_name . '/' . $this->class_name . '.php';
+    } else {
+	//Generate Action View
+	$view_filepath = APP_PATH . '/app/views/' . $this->class_name . '/' . $this->options[0] . '.php';
+    }
+
 	//Sets the path to the stylesheet for home page
 	$css_path = APP_URI . '/public/css/main.css';
  

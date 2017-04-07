@@ -1,53 +1,57 @@
 <?php
 /**
- * Generates output for the Home view
+ * Student Controller
  *
  * @author     Muhammad Mubashir Mufti <mmufti@hotmail.com>
  */
 
 class StudentController extends BaseController
 {
+
 /**
-* Overrides the parent constructor to avoid an error
+* constructor
 *
-* @return bool TRUE
+* @return boolean TRUE
 */
-public function __construct($options)
+public function __construct( $options )
 {
-    parent::__construct($options);
-	
-	//$this->model = new StudentModel;
-	
-	// Check for actions submitted in URI 'add_student_action' below
-	// and associate a method to it to be called later in handleAction.
-	$this->actions = array(
-	    'add' => 'add_student',
-		'edit' => 'edit_student',
-		);
-	if (array_key_exists($options[0], $this->actions)) {
-	    $this->handleAction($options[0]);  // Defined in baseController.php file
-		exit;
-	}	
-	}
-protected function add_student()
-{
-    // Leaving Model classes for a while only testing views/controllers
-	$output = 'add';
-	return $output;
-	}
+    if (!is_array($options)) {
+        throw new Exception("No options were supplied for the room.");
+    }
+}
+
+
 /**
 * Loads and outputs the view's markup
 *
 * @return void
 */
-public function outputView( )
+public function handleController($class_name, $options )
 {
-    $view = new ViewManager('student');
+    if (empty($options)) {
+	// Generate Controller View
+    $view = new ViewManager($class_name, $options);
 	
-	//variable for view file, utilizing __set function
-	$view->add_student_action =APP_URI. '\student\add';
+	//variable having action URIs for Form submission ( utilizing __set function in viewManager)
+	$view->add_student_action = APP_URI. '\student\add';
     
 	//render view file
 	$view->render();
+	
+	} else {
+	    //Generate Action View
+		$this->actions = array(
+	    'add' => 'add_student',
+		'edit' => 'edit_student',
+		'delete' => 'delete_student',
+		);
+	    if (array_key_exists($options[0],$this->actions)) {
+		    $view = new ViewManager($class_name, $options);
+		    //variable having action URIs for Form submission ( utilizing __set function in viewManager)
+	        //$view->add_student_action =APP_URI. '\student\add';
+    	    //render view file
+	        $view->render();
+	    }
+	}
 }
 }

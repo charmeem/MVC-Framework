@@ -1,6 +1,6 @@
 <?php
 /**
- * Generates output for the Home view
+ * Teacher Controller Class
  *
  * @author     Muhammad Mubashir Mufti <mmufti@hotmail.com>
  */
@@ -17,14 +17,15 @@ public function __construct( )
 return TRUE;
 }
 
+
 /**
 * Loads and outputs the view's markup
 *
 * @return void
 */
-public function outputView( )
+public function handleController($class_name, $options)
 {
-    $view = new ViewManager('teacher');
+    $view = new ViewManager($class_name, $options);
     $view->render();
 }
 }

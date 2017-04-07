@@ -1,0 +1,30 @@
+<?php
+
+/**
+ * Controller Factory
+ *
+ * Generates controller objects
+ *
+ * @author     Muhammad Mubashir Mufti <mmufti@hotmail.com>
+ */
+class ControllerFactory
+{
+    protected $options;
+	
+/**
+ * constructor
+ *
+ * @return boolean TRUE
+ */
+public function __construct($name)
+	{
+	     $this->name = $name;   
+	}
+	public static function controllerName($name,$options)
+	{
+	    $cName = $name . "Controller";
+		return new $cName($options);
+	}
+}
+ 
+

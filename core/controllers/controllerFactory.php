@@ -7,26 +7,23 @@
  *
  * @author     Muhammad Mubashir Mufti <mmufti@hotmail.com>
  */
-class ControllerFactory ()
+class ControllerFactory
 {
-    public function __construct()
+    protected $options;
+	
+/**
+ * constructor
+ *
+ * @return boolean TRUE
+ */
+public function __construct($name)
 	{
-	    
+	     $this->name = $name;   
 	}
-	public function className($name)
+	public static function controllerName($name,$options)
 	{
-	    $controllerName = $name . "Controller";
-	    return new $controllerName();
+	    $cName = $name . "Controller";
+		return new $cName($options);
 	}
 }
  
-/**
-* Controller Handler
-*
-* @return void
-*/
-public function controllerHandler($name)
-{
-    $controller = ControllerFactory::className($name);
-	return $controller->outputView;
-}

@@ -15,6 +15,7 @@ define('APP_FOLDER', dirname($_SERVER['SCRIPT_NAME']));
 define('APP_URI',('http://' . $_SERVER['SERVER_NAME'] . APP_FOLDER));
 
 require_once APP_PATH . '/core/controllers/baseController.php' ;
+require_once APP_PATH . '/core/controllers/controllerFactory.php' ;
 require_once APP_PATH . '/app/controllers/HomeController.php' ;
 require_once APP_PATH . '/app/controllers/studentController.php' ;
 require_once APP_PATH . '/app/controllers/teacherController.php' ;
@@ -28,25 +29,21 @@ require_once APP_PATH . '/core/views/viewManager.php' ;
 
 // Parses the URI
 $uri_array = parse_uri();
+
 $class_name = get_controller_classname($uri_array);
-$options = $uri_array;
-//var_dump($options);
-// Sets a default view if nothing is passed in the URI (i.e. on the home page)
+
+//Default home controller
 if (empty($class_name)) {
-    $class_name = 'HomeController';
-} else {
-         $class_name = $class_name . "Controller";
-		}
+    $class_name = 'Home';
+	}
 
-// Tries to initialize the requested view
-$controller = new $class_name($options);
+$options = $uri_array; // controller is dropped and $uri_array left now with actions and parametrs, 
+                       //due to reference argument to get_controller_classname
 
-//-----------------------------------------------------------------------------
-// Outputs the view
-//-----------------------------------------------------------------------------
+// Generate Controller Objects 
+$controller = ControllerFactory::controllerName($class_name, $options);
 
-//$controller->outputView();
-$controller->handleAction();
+$controller->handleController($class_name, $options);
 
 //-----------------------------------------------------------------------------
 // Function declarations

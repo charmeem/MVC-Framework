@@ -1,6 +1,6 @@
 <?php
 /**
- * An abstract Class
+ * Abstract Controller Class
  *
  * An abstract Core Controller Class setting template for the child controller Classes
  *
@@ -24,22 +24,11 @@
           }
       }
 	  
-	 /**
-      * Action Handler
-      *
-	  * @parameter $action
-      *
-      */
-     protected function handleAction($action)
-	 {
-	     //CAlls the method specifies by action in respective controller class
-		 $output = $this->{$this->$actions[$action]}();  // e.g calling method 'add_student' in studentController.php
-		 }
 	 
      /**
       * Load view's markup'
       *
       * @return void
       */
-     abstract public function outputView();
+     abstract public function handleController($class_name, $options);
  }
