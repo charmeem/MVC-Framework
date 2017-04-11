@@ -14,24 +14,28 @@
 	    <form id="add_student" method="post" action="<?php echo $add_student_action ?>">
 		    <h2>Add Student data</h2>
 			<label>
-			    First Name
-			    <input type="text" name="first-name" />
+			    Roll Number:
+			    <input type="text" name="roll_number" />
 			</label>
 			<label>
-			    Last Name
-			    <input type="text" name="last-name" />
+			    First Name:
+			    <input type="text" name="first_name" />
 			</label>
 			<label>
-			    Semester
+			    Last Name:
+			    <input type="text" name="last_name" />
+			</label>
+			<label>
+			    Current Semester:
 			    <input type="text" name="semester" />
 			</label>
 			<label>
-			    Major
-			    <input type="text" name="Major" />
+			    Major:
+			    <input type="text" name="major" />
 			</label>
 			<label>
-			    Grade obtained
-			    <input type="text" name="Grade" />
+			    Average Grade obtained:
+			    <input type="text" name="grade" />
 			</label>
 			<input type="submit" Value="Enter" />
 		</form>				

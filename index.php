@@ -14,12 +14,20 @@ define('APP_FOLDER', dirname($_SERVER['SCRIPT_NAME']));
 // URL path to the app (i.e. http://localhost/webapp)
 define('APP_URI',('http://' . $_SERVER['SERVER_NAME'] . APP_FOLDER));
 
+require_once APP_PATH . '/app/config.php' ;
+
 require_once APP_PATH . '/core/controllers/baseController.php' ;
+require_once APP_PATH . '/core/models/baseModel.php' ;
 require_once APP_PATH . '/core/controllers/controllerFactory.php' ;
 require_once APP_PATH . '/app/controllers/HomeController.php' ;
 require_once APP_PATH . '/app/controllers/studentController.php' ;
 require_once APP_PATH . '/app/controllers/teacherController.php' ;
 require_once APP_PATH . '/app/controllers/courseController.php' ;
+require_once APP_PATH . '/app/models/studentModel.php' ;
+//require_once APP_PATH . '/app/models/teacherModel.php' ;
+//require_once APP_PATH . '/app/models/courseModel.php' ;
+
+
 
 require_once APP_PATH . '/core/views/viewManager.php' ;
 
