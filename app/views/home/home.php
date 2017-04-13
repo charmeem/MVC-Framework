@@ -15,9 +15,9 @@
      A Database for Teachers, Students and Courses.
    </p><!--/.tagline-->
   </header>
-  <a href = "<?php echo $student_section; ?>"> Go to Student Section </a>
-  <a href = "<?php echo $teacher_section; ?>"> Go to Teacher Section </a>
-  <a href = "<?php echo $course_section; ?>"> Go to Course Section </a>
+  <a href = "<?php echo $student_section; ?>"> Student Section </a>
+  <a href = "<?php echo $teacher_section; ?>"> Teacher Section </a>
+  <a href = "<?php echo $course_section; ?>">  Course Section </a>
   
   <footer>
    <p class = "copyright">

@@ -38,6 +38,9 @@ require_once APP_PATH . '/core/views/viewManager.php' ;
 // Parses the URI
 $uri_array = parse_uri();
 
+//var_dump($uri_array);
+//Q? How do we avoid calling 'get_controller_classname' multiple times
+
 $class_name = get_controller_classname($uri_array);
 
 //Default home controller
@@ -46,7 +49,7 @@ if (empty($class_name)) {
 	}
 
 $options = $uri_array; // controller is dropped and $uri_array left now with actions and parametrs, 
-                       //due to reference argument to get_controller_classname
+                       //due to reference argument passed to get_controller_classname
 
 // Generate Controller Objects 
 $controller = ControllerFactory::controllerName($class_name, $options);

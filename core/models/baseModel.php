@@ -1,6 +1,8 @@
 <?php
 /**
- * Create generic database interaction methods
+ * Generic database interaction methods
+ *
+ * Based on Singleton Patteren,Can be transferred later to mysli_driver class 
  *
  * @author     Muhammad Mubashir Mufti <mmufti@hotmail.com>
  */
@@ -16,9 +18,7 @@ abstract class baseModel
     public function __construct() 
 	{
 	    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-	    self::$mysqli = new mysqli(
-	    DB_HOST, DB_USER, DB_PSW, DB_NAME
-		);
+	    self::$mysqli = new mysqli( DB_HOST, DB_USER, DB_PSW, DB_NAME );
 	    if (mysqli_connect_errno()) {
 	        echo 'Connect Fail' . mysqli_connect_error();
 		    exit;
