@@ -26,8 +26,9 @@ public function __construct( $options )
         throw new Exception("No options were supplied for the room.");
     }
 	
-	$this->model = new StudentModel;
-	//Generate Action View
+	$this->model = new StudentModel; // USe model factory here
+	
+	//Generate CRUD Action View
 	$this->actions = array(
 	'add' => 'addStudent',
 	'edit' => 'editStudent',
@@ -40,27 +41,28 @@ public function __construct( $options )
 *
 * @return void
 */
-public function handleController($class_name, $options )
+public function handleController($controller_name, $options )
 {
     if (empty($options)) {
 	// Generate Controller View
-    $view = new ViewManager($class_name, $options);
+    $view = new ViewManager($controller_name, $options);
 	
-	//variable having action URIs for Form submission ( utilizing __set function in viewManager)
+	//adding add action variable for student view Form submission( utilizing __set function in viewManager)
+	// This will render action view when form submit button pressed
 	$view->add_student_action = APP_URI. '\student\add';
     
 	//render view file
 	$view->render();
 	
 	} else {
-	    //Generate Action View
+	    //Generate Action View result from form submit action above
 		if (array_key_exists($options[0],$this->actions)){
             //$options[0] = $action;
 			
-            // CAll the method specified by the action 'e.g. addStudent'			
+            // CAll the method specified by the action 'e.g. addStudent below'			
 		    $output = $this->{$this->actions[$options[0]]}();
 			
-		    $view = new ViewManager($class_name, $options);
+		    $view = new ViewManager($controller_name, $options);
 		    //variable having action URIs for Form submission ( utilizing __set function in viewManager)
 	        //$view->add_student_action =APP_URI. '\student\add';
     	    //render view file
@@ -84,7 +86,7 @@ protected function addStudent()
 	$grade = $_POST['grade'];
 	
 	// Call addStudent method of Model class to store data
-	$output = $this->model->addStudent($roll, $fname, $lname, $semester, $major, $grade );
+	$output = $this->model->add($roll, $fname, $lname, $semester, $major, $grade );
 	
 	// MAke sure valid output returned
 	if (is_array($output)) {

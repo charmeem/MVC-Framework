@@ -10,22 +10,22 @@
  */
 class ViewManager
 {
-    protected $class_name,
+    protected $controller_name,
 	          $css_path,
 			  $options = array(),
               $vars = array();
 /**
 * Initializes the view
 *
-* @param $class_name $options 
+* @param $controller_name $options 
 *
 */
-public function __construct( $class_name, $options)
+public function __construct( $controller_name, $options)
 {
-    if (!$class_name) {
+    if (!$controller_name) {
     throw new Exception("No class argument was supplied.");
     }
-    $this->class_name = $class_name;
+    $this->controller_name = $controller_name;
 	$this->options = $options;
 }
 /**
@@ -51,10 +51,10 @@ public function render()
 	
     //Generate Controller View 
 	if (empty($this->options)) {
-    $view_filepath = APP_PATH . '/app/views/' . $this->class_name . '/' . $this->class_name . '.php';
+    $view_filepath = APP_PATH . '/app/views/' . $this->controller_name . '/' . $this->controller_name . '.php';
     } else {
 	//Generate Action View
-	$view_filepath = APP_PATH . '/app/views/' . $this->class_name . '/' . $this->options[0] . '.php';
+	$view_filepath = APP_PATH . '/app/views/' . $this->controller_name . '/' . $this->options[0] . '.php';
     }
 
 	//Sets the path to the stylesheet for home page

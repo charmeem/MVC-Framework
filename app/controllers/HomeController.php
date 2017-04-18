@@ -14,6 +14,8 @@ class HomeController extends BaseController
 */
 public function __construct( $options )
 {
+//print_r(get_declared_classes());
+
     if (!is_array($options)) {
         throw new Exception("No options were supplied for the room.");
     }

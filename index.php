@@ -16,7 +16,11 @@ define('APP_URI',('http://' . $_SERVER['SERVER_NAME'] . APP_FOLDER));
 
 require_once APP_PATH . '/app/config.php' ;
 
+require_once APP_PATH . '/core/controllers/controllerInterface.php' ;
 require_once APP_PATH . '/core/controllers/baseController.php' ;
+require_once APP_PATH . '/core/models/database/drivers/database.php' ;
+require_once APP_PATH . '/core/models/database/drivers/mysqli/mysqli_driver.php' ;
+
 require_once APP_PATH . '/core/models/baseModel.php' ;
 require_once APP_PATH . '/core/controllers/controllerFactory.php' ;
 require_once APP_PATH . '/app/controllers/HomeController.php' ;
@@ -35,26 +39,27 @@ require_once APP_PATH . '/core/views/viewManager.php' ;
 // Loads and processes view data
 //-----------------------------------------------------------------------------
 
+//Application starts here...
 // Parses the URI
 $uri_array = parse_uri();
 
 //var_dump($uri_array);
 //Q? How do we avoid calling 'get_controller_classname' multiple times
 
-$class_name = get_controller_classname($uri_array);
+$controller_name = get_controller_classname($uri_array);
 
-//Default home controller
-if (empty($class_name)) {
-    $class_name = 'Home';
+//Go to default home controller if URI does not contain any.
+if (empty($controller_name)) {
+    $controller_name = 'Home';
 	}
 
 $options = $uri_array; // controller is dropped and $uri_array left now with actions and parametrs, 
                        //due to reference argument passed to get_controller_classname
 
-// Generate Controller Objects 
-$controller = ControllerFactory::controllerName($class_name, $options);
+// Generate Controller Object
+$controller = ControllerFactory::controllerName($controller_name, $options);
 
-$controller->handleController($class_name, $options);
+$controller->handleController($controller_name, $options);
 
 //-----------------------------------------------------------------------------
 // Function declarations
@@ -76,11 +81,11 @@ function parse_uri( )
 	//Converting URI into array
     $uri_array = explode('/', $real_uri);
 
-    // If the first element is empty, get rid of it
+    // Q? If the first element is empty, get rid of it
     if (empty($uri_array[0])) {
         array_shift($uri_array);
     }
-    // If the last element is empty, get rid of it
+    // Q? If the last element is empty, get rid of it
     if (empty($uri_array[count($uri_array)-1])) {
         array_pop($uri_array);
     }

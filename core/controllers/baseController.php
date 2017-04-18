@@ -9,7 +9,7 @@
  * @author     Muhammad Mubashir Mufti <mmufti@hotmail.com>
  */
  
- abstract class BaseController 
+ abstract class BaseController implements ControllerInterface
  {
      /**
       * Constructor
