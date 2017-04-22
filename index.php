@@ -44,7 +44,7 @@ require_once APP_PATH . '/core/views/viewManager.php' ;
 $uri_array = parse_uri();
 
 //var_dump($uri_array);
-//Q? How do we avoid calling 'get_controller_classname' multiple times
+//Q? How do we avoid calling 'get_controller_classname' multiple times whenever new request is made
 
 $controller_name = get_controller_classname($uri_array);
 
@@ -56,7 +56,7 @@ if (empty($controller_name)) {
 $options = $uri_array; // controller is dropped and $uri_array left now with actions and parametrs, 
                        //due to reference argument passed to get_controller_classname
 
-// Generate Controller Object
+// Create Controller Object
 $controller = ControllerFactory::controllerName($controller_name, $options);
 
 $controller->handleController($controller_name, $options);

@@ -28,9 +28,10 @@ public function __construct( $options )
 	
 	$this->model = new StudentModel; // USe model factory here
 	
-	//Generate CRUD Action View
+	//Define an array for CRUD Actions
 	$this->actions = array(
 	'add' => 'addStudent',
+	'list' => 'listStudent',
 	'edit' => 'editStudent',
 	'delete' => 'deleteStudent',
 	);
@@ -44,7 +45,7 @@ public function __construct( $options )
 public function handleController($controller_name, $options )
 {
     if (empty($options)) {
-	// Generate Controller View
+	// Generate initial Controller View (form inputs)
     $view = new ViewManager($controller_name, $options);
 	
 	//adding add action variable for student view Form submission( utilizing __set function in viewManager)
@@ -59,7 +60,7 @@ public function handleController($controller_name, $options )
 		if (array_key_exists($options[0],$this->actions)){
             //$options[0] = $action;
 			
-            // CAll the method specified by the action 'e.g. addStudent below'			
+            // Call the method specified by the action e.g. 'addStudent' below			
 		    $output = $this->{$this->actions[$options[0]]}();
 			
 		    $view = new ViewManager($controller_name, $options);
