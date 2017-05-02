@@ -19,8 +19,9 @@ require_once APP_PATH . '/app/config.php' ;
 require_once APP_PATH . '/core/controllers/controllerInterface.php' ;
 require_once APP_PATH . '/core/controllers/baseController.php' ;
 require_once APP_PATH . '/core/models/database/drivers/database.php' ;
-require_once APP_PATH . '/core/models/database/drivers/mysqli/mysqli_driver.php' ;
+require_once APP_PATH . '/core/models/database/drivers/mysqli/MysqliDriver.php' ;
 
+require_once APP_PATH . '/core/models/modelFactory.php' ;
 require_once APP_PATH . '/core/models/baseModel.php' ;
 require_once APP_PATH . '/core/controllers/controllerFactory.php' ;
 require_once APP_PATH . '/app/controllers/HomeController.php' ;
@@ -40,6 +41,23 @@ require_once APP_PATH . '/core/views/viewManager.php' ;
 //-----------------------------------------------------------------------------
 
 //Application starts here...
+//Creating instance of singleton Database
+$dbase = Database::getInstance();
+
+//Creating and Storing mysqli object
+$dbase->storeObject('MysqliDriver', 'mysqlidb');
+//Creating objects for other Databases like MSSQL in future
+//$dbase->storeObject('MssqlDriver', 'mssqldb');
+
+//Creating and storing authentication object
+//$dbase->storeObject('authentication', 'authenticate');
+
+//Make connection to mysqli database
+$dbase->getObject('mysqlidb')->connect();	
+//Make connection to other database engines like mssql database
+//$dbase->getObject('mssqldb')->connect();	
+				
+    
 // Parses the URI
 $uri_array = parse_uri();
 
@@ -59,7 +77,8 @@ $options = $uri_array; // controller is dropped and $uri_array left now with act
 // Create Controller Object
 $controller = ControllerFactory::controllerName($controller_name, $options);
 
-$controller->handleController($controller_name, $options);
+//Go to controller to render View and interact to Model 
+$controller->handleController($controller_name, $options, $dbase);
 
 //-----------------------------------------------------------------------------
 // Function declarations

@@ -23,7 +23,7 @@ return TRUE;
 *
 * @return void
 */
-public function handleController($class_name, $options)
+public function handleController($class_name, $options, $dbase)
 {
     $view = new ViewManager($class_name, $options);
     $view->render();

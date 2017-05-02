@@ -8,21 +8,21 @@
  */
 class BaseModel
 {
-     protected  $connection;
-       
+    public $dbase;
 	public function __construct()
 	{
-	 
-	// 1. Creating Connection to Mysql database using Singleton pattern in 
-	     // Database.php and mysqli_driver.php
-          
-         // 2. Creating Connection to  Mongo database using Singleton pattern 
-         //$mongo = Mongo::getInstance()->connect();
-	 
-	     // 3. Creating Connection to  Microsoft Sql database using Singleton pattern 
-         //$mssql = Mss::getInstance()->connect();
-	 }
+    }
+
+	 /**
+	* Insert query string into database
+	*
+	* @return void
+	*/
+	public function add ($table, $addData) 
+	{
+	    $this->dbase->getObject('mysqlidb')->insert($table, $addData);
+    }
 	
-	
+    
 	
 }

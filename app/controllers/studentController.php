@@ -7,18 +7,15 @@
 
 class StudentController extends BaseController
 {
-   public $roll,
-       $fname,
-	   $lname,
-	   $semester,
-	   $major,
-	   $grade; 
+   public $roll_number, $fname, $lname, $semester, $major, $grade, $controller_name;
+   public $addData = array(), $table, $action, $test;
+   
 /**
 * constructor
 *
 * @return boolean TRUE
 */
-public function __construct( $options )
+public function __construct( $controller_name, $options)
 {
     parent::__construct($options);
 	
@@ -26,15 +23,36 @@ public function __construct( $options )
         throw new Exception("No options were supplied for the room.");
     }
 	
-	$this->model = new StudentModel; // USe model factory here
+	/**
+	 * generating table name from controller_name
+	 */
+	$this->table = lcfirst($controller_name);
 	
-	//Define an array for CRUD Actions
+	/**
+	 * Creating array from action form input(student table columns)
+	 */
+	if(isset($_POST['roll_number'])) 
+	    $this->addData['roll_number'] =$_POST['roll_number'];
+	if(isset($_POST['first_name'])) 
+		$this->addData['first_name'] = $_POST['first_name'];
+	if(isset($_POST['last_name'])) 
+		$this->addData['last_name'] = $_POST['last_name'];
+	if(isset($_POST['semester'])) 
+		$this->addData['semester'] = $_POST['semester'];
+	if(isset($_POST['major'])) 
+		$this->addData['major'] = $_POST['major'];
+	if(isset($_POST['grade'])) 
+		$this->addData['grade'] = $_POST['grade'];
+	    
+		    
+	//Define an array for CRUD Actions : move to some common place later !!
 	$this->actions = array(
-	'add' => 'addStudent',
-	'list' => 'listStudent',
-	'edit' => 'editStudent',
-	'delete' => 'deleteStudent',
+	'add' => 'add',
+	'list' => 'list',
+	'edit' => 'edit',
+	'delete' => 'delete',
 	);
+	
 }
 
 /**
@@ -42,7 +60,7 @@ public function __construct( $options )
 *
 * @return void
 */
-public function handleController($controller_name, $options )
+public function handleController($controller_name, $options, $dbase )
 {
     if (empty($options)) {
 	// Generate initial Controller View (form inputs)
@@ -58,42 +76,19 @@ public function handleController($controller_name, $options )
 	} else {
 	    //Generate Action View result from form submit action above
 		if (array_key_exists($options[0],$this->actions)){
-            //$options[0] = $action;
+		
+	        // Create Model object using model factory e.g. object of class 'StudentModel'
+        	$this->model = ModelFactory::modelName('Student', $dbase);
+
+			// Go to Model Class based on action
+			$this->model->{$this->actions[$options[0]]}($this->table, $this->addData);
 			
-            // Call the method specified by the action e.g. 'addStudent' below			
-		    $output = $this->{$this->actions[$options[0]]}();
-			
+			//render view
 		    $view = new ViewManager($controller_name, $options);
-		    //variable having action URIs for Form submission ( utilizing __set function in viewManager)
-	        //$view->add_student_action =APP_URI. '\student\add';
-    	    //render view file
 	        $view->render();
 	    }
 	}
 }
 
-/**
-* Get Form input data and direct to the model to be stored in the database
-*
-* @return array about the added student info
-*/
-protected function addStudent()
-{
-    $roll = $_POST['roll_number'];
-	$fname = $_POST['first_name'];
-	$lname = $_POST['last_name'];
-	$semester = $_POST['semester'];
-	$major = $_POST['major'];
-	$grade = $_POST['grade'];
-	
-	// Call addStudent method of Model class to store data
-	$output = $this->model->add($roll, $fname, $lname, $semester, $major, $grade );
-	
-	// MAke sure valid output returned
-	if (is_array($output)) {
-	    return $output;
-	} else {
-	    throw new Exception('Error Adding Student data.');
-		}
-}
+
 }

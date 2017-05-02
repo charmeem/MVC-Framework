@@ -11,5 +11,5 @@
  
  interface ControllerInterface 
  {
-     public function handleController($class_name, $options);
+     public function handleController($class_name, $options, $dbase);
  }

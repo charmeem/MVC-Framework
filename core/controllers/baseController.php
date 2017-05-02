@@ -30,5 +30,5 @@
       *
       * @return void
       */
-     abstract public function handleController($class_name, $options);
+     abstract public function handleController($class_name, $options, $dbase);
  }

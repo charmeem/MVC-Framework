@@ -16,14 +16,10 @@ class ControllerFactory
  *
  * @return boolean TRUE
  */
-public function __construct($name)
-{
-    $this->name = $name;   
-}
 public static function controllerName($name,$options)
 {
     $cName = $name . "Controller";
-	return new $cName($options);
+	return new $cName($name, $options);
 }
 }
  

@@ -12,7 +12,7 @@ class Database
     protected static $_singleton = null;
 	
 	// array of objects stored within
-	private $objects = array();
+	static $objects = array();
 	
     protected function __construct()
     {}
@@ -38,7 +38,7 @@ public final static function getInstance()
 // I will mainly use this to instantiate database drivers and calling its methods
 public function storeObject($object, $key)
 {
-    self::objects[$key] = new $object( self::$singleton);
+    self::$objects[$key] = new $object( self::$_singleton);
 }
 
 // Get an object from the $objects array stored earlier
@@ -48,7 +48,15 @@ public function getObject($key)
        return self::$objects[$key];
 	}
 }
+/*
+abstract function connect();
+abstract function executeQuery($queryStr);
+abstract function close();
+abstract function insert($table, $addData);
+abstract function edit();
+abstract function delete();
+*/
 
-public function connect() {}
+
 // More functions to follow....
 }

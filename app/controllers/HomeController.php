@@ -16,17 +16,14 @@ public function __construct( $options )
 {
 //print_r(get_declared_classes());
 
-    if (!is_array($options)) {
-        throw new Exception("No options were supplied for the room.");
-    }
-}
+ }
 	 
 /**
 * Loads and outputs view's markup
 *
 * @return void
 */
-public function handleController($class_name, $options )
+public function handleController($class_name, $options, $dbase )
 {
     $view = new ViewManager($class_name, $options);
 
