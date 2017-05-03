@@ -2,61 +2,28 @@
 /**
  * A Database access class
  *
- * Based on Registry pattern 
+ * providing abstract layer for databases 
  * 
  * @author     Muhammad Mubashir Mufti <mmufti@hotmail.com>
  */
-class Database
+abstract class Database
 {
-    
-    protected static $_singleton = null;
-	
-	// array of objects stored within
-	static $objects = array();
-	
-    protected function __construct()
-    {}
-/**
- * Static function, creates instance of its own class
- *
- * This function when called from Model class will create mysqli Connection
- *
- * Singleton Pattern is used to avoid multiple objects of database connections
- *
- * @author     Muhammad Mubashir Mufti <mmufti@hotmail.com>
- */
-	
-public final static function getInstance()
-{
-    if(null === static::$_singleton) {
-    static::$_singleton = new static();
-	}
-	return static::$_singleton;
-}
+    protected function __construct(){}
 
-// Creating and storing object(with singleton instance as argument) in $objects array.
-// I will mainly use this to instantiate database drivers and calling its methods
-public function storeObject($object, $key)
-{
-    self::$objects[$key] = new $object( self::$_singleton);
-}
+    abstract function connect();
+    abstract function executeQuery($queryStr);
+    abstract function close();
+    abstract function insert($table, $addData);
+    abstract function edit();
+    abstract function delete();
 
-// Get an object from the $objects array stored earlier
-public function getObject($key)
-{
-   if (is_object (self::$objects[$key])) {
-       return self::$objects[$key];
-	}
-}
-/*
-abstract function connect();
-abstract function executeQuery($queryStr);
-abstract function close();
-abstract function insert($table, $addData);
-abstract function edit();
-abstract function delete();
-*/
+    protected function __clone() {
+        throw new Exception('Not Allowed');
+    }
 
+    protected function __wakeup() {
+        throw new Exception('Not Allowed');
+    }
 
 // More functions to follow....
 }

@@ -16,6 +16,7 @@ define('APP_URI',('http://' . $_SERVER['SERVER_NAME'] . APP_FOLDER));
 
 require_once APP_PATH . '/app/config.php' ;
 
+require_once APP_PATH . '/core/models/registry.php' ;
 require_once APP_PATH . '/core/controllers/controllerInterface.php' ;
 require_once APP_PATH . '/core/controllers/baseController.php' ;
 require_once APP_PATH . '/core/models/database/drivers/database.php' ;
@@ -42,18 +43,24 @@ require_once APP_PATH . '/core/views/viewManager.php' ;
 
 //Application starts here...
 //Creating instance of singleton Database
-$dbase = Database::getInstance();
+//unset($dbase);
+$dbase = Registry::getInstance();
 
 //Creating and Storing mysqli object
 $dbase->storeObject('MysqliDriver', 'mysqlidb');
+//Creating and Storing PDO object
+//$dbase->storeObject('pdoDriver', 'pdodb');
 //Creating objects for other Databases like MSSQL in future
 //$dbase->storeObject('MssqlDriver', 'mssqldb');
 
 //Creating and storing authentication object
 //$dbase->storeObject('authentication', 'authenticate');
 
-//Make connection to mysqli database
+//Make connection to mysql database using mysqli
 $dbase->getObject('mysqlidb')->connect();	
+//Make connection to mysql database using PDO
+//$dbase->getObject('mysqlidb')->connect();	
+
 //Make connection to other database engines like mssql database
 //$dbase->getObject('mssqldb')->connect();	
 				

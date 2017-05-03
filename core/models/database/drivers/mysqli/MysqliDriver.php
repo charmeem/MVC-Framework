@@ -8,7 +8,8 @@
  */
 class MysqliDriver extends Database
 {
-     private $connection;   
+    private $connection;  
+    public function __construct(){}	 
 	/**
      * Create mysqli connection to MySQL
      *

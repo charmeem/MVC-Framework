@@ -11,7 +11,7 @@
 class StudentModel extends BaseModel
 {
     public $dbase;
-    public function __construct (Database $dbase)
+    public function __construct (Registry $dbase)
 	{
 	$this->dbase = $dbase;
 	    }
