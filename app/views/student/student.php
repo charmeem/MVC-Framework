@@ -11,7 +11,7 @@
   <header>
    <h1>Welcome to the Student section of virtual CAMPUS</h1>
     <section>
-	    <form id="add_student" method="post" action="<?php echo $add_student_action ?>">
+	    <form id="add_student" method="post" action="<?php echo $add; ?>">
 		    <h2>Add Student data</h2>
 			<label>
 			    Roll Number:
@@ -33,15 +33,30 @@
 			    Major:
 			    <input type="text" name="major" />
 			</label>
+			<br>
 			<label>
 			    Average Grade obtained:
 			    <input type="text" name="grade" />
 			</label>
 			<input type="submit" Value="Enter" />
 		</form>				
-    </section>	
+    </section>
+	<br><br>
+	<section>
+	  <a href = "<?php echo $list; ?>"> List all students </a>
+    </section>
+	<br><br>
+	<section>
+	  <form id = "search" method = "post" action = "<?php echo $search; ?>" >
+        <label>
+		  Search Student :
+		  <input type = "text" name = "student_search" >
+		  <input type = "submit" name = "search" value = "SEARCH">
+        </label>
+      </form>		
+	</section>
+	 
    </header>
-  <!--<a href = "<?php echo $add_student; ?>"> Go to Add Student Section </a> -->
   <footer>
    <p class = "copyright">
     &copy 2017 Mubashir Mufti

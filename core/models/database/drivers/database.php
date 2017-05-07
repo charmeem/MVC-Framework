@@ -16,6 +16,7 @@ abstract class Database
     abstract function insert($table, $addData);
     abstract function edit();
     abstract function delete();
+    //abstract function sanitizeData();
 
     protected function __clone() {
         throw new Exception('Not Allowed');

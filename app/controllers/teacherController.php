@@ -7,15 +7,16 @@
 
 class TeacherController extends BaseController
 {
+
 /**
-* Overrides the parent constructor to avoid an error
+* constructor
 *
-* @return bool TRUE
+* @return boolean TRUE
 */
-public function __construct( )
+public function __construct($controller_name, $options, $dbase)
 {
-return TRUE;
-}
+    parent::__construct($controller_name, $options, $dbase);
+}	 
 
 
 /**
@@ -23,7 +24,7 @@ return TRUE;
 *
 * @return void
 */
-public function handleController($class_name, $options, $dbase)
+public function handleController($controller_name, $options, $dbase)
 {
     $view = new ViewManager($class_name, $options);
     $view->render();

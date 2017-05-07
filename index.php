@@ -78,11 +78,11 @@ if (empty($controller_name)) {
     $controller_name = 'Home';
 	}
 
-$options = $uri_array; // controller is dropped and $uri_array left now with actions and parametrs, 
+$options = $uri_array; // controller name is dropped and $uri_array left now with actions and parametrs, 
                        //due to reference argument passed to get_controller_classname
 
 // Create Controller Object
-$controller = ControllerFactory::controllerName($controller_name, $options);
+$controller = ControllerFactory::controllerName($controller_name, $options, $dbase);
 
 //Go to controller to render View and interact to Model 
 $controller->handleController($controller_name, $options, $dbase);

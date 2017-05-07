@@ -18,11 +18,20 @@ class BaseModel
 	*
 	* @return void
 	*/
-	public function add ($table, $addData) 
+	public function add ($table, $addAction) 
 	{
-	    $this->dbase->getObject('mysqlidb')->insert($table, $addData);
+	    $this->dbase->getObject('mysqlidb')->insert($table, $addAction);
     }
 	
-    
+    /**
+	* Search query string from database
+	*
+	* @return void
+	*/
+	public function search ($table, $addAction)
+	{
+	    $this->dbase->getObject('mysqlidb')->insert($table, $addAction);
+    }
+	
 	
 }
