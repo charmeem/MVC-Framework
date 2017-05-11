@@ -108,11 +108,11 @@ public function add($roll_number, $first_name, $last_name, $major, $semester, $g
      * Sanitize data
      * @param String the data to be sanitized
      * @return String the sanitized data
-     *
+     */
     public function sanitizeData( $data )
     {
     	return $this->connection->real_escape_string( $data );
     }
-	*/
+	
     
 }
