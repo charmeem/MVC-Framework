@@ -2,6 +2,9 @@
 /**
  * Student Controller
  *
+ * Function: Create Model Object ( done in Parent 'BaseControlelr' class)
+ * Call model methods( database drivers), Render Views( or templates)
+ *           
  * @author     Muhammad Mubashir Mufti <mmufti@hotmail.com>
  */
 
@@ -22,7 +25,8 @@ public function __construct( $controller_name, $options, $dbase )
 	
     	
 	/**
-	 * Creating addData array from action form input(student table columns)
+	 * Creating Query variables for database Drivers
+	 * addData array from action form output(student table columns) as input for INSERT
 	 */
 	if(isset($_POST['roll_number'])) 
 	    $this->addData['roll_number'] =$_POST['roll_number'];
@@ -42,7 +46,7 @@ public function __construct( $controller_name, $options, $dbase )
 	    $this->searchData = $_POST['student_search'];	
 	
 	// Creating Action Data array to be used to call db actions and queries from BaseControlelr class
-          $this->actionData = array (
+        $this->actionData = array (
 		   'add'    => $this->addData,
 		   'search' => $this->searchData,
 		   );

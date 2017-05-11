@@ -42,7 +42,7 @@ require_once APP_PATH . '/core/views/viewManager.php' ;
 //-----------------------------------------------------------------------------
 
 //Application starts here...
-//Creating instance of singleton Database
+//Creating instance of singleton Registry
 //unset($dbase);
 $dbase = Registry::getInstance();
 
