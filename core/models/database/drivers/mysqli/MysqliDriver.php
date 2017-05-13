@@ -8,7 +8,9 @@
  */
 class MysqliDriver extends Database
 {
-    private $connection;  
+    private $connection; 
+    private $queryCache = array();
+	
     public function __construct(){}	 
 	/**
      * Create mysqli connection to MySQL
@@ -52,7 +54,32 @@ class MysqliDriver extends Database
 		$this->executeQuery($insert);  
 		return true;
 		}
-	
+	/**
+	 * Search query 
+	 *
+	 */
+	 public function searchQuery ($table, $searchData)
+	 {
+        // separating columns from $searchData array  	    
+		$columns = $searchData['columns'];
+		 
+	     $column = "";
+		 foreach ($columns as $f => $v) {
+		     $column .= "$v ,";
+			 }
+		 
+         // removing training comma
+	     $column = substr($column, 0, -1);
+         
+		 // sanitize search input
+         $searchPhrase = $this -> sanitizeData($searchData['search']);
+		 
+		 $condition = $columns[0];
+    	 $sql = "SELECT $column from $table WHERE $condition like '%{$searchPhrase}%'";
+		 $this->cacheQuery($sql);
+		 
+	}
+	 
 	/**
     * Execute a query string
     * @param String the query
@@ -64,7 +91,34 @@ class MysqliDriver extends Database
 		if (!$result) echo 'Connection Fail' . mysqli_connect_error() . "<br><br>";
 		}
 	
+	/*
+    * Store a query in query cache to be used for processing
+    * @param String the query
+    * @return void
+    */
+	public function cacheQuery ($sql)
+	{
+	    if (!$result = $this->connection->query($sql) )
+		{
+		    echo 'Connection Fail' . mysqli_connect_error() . "<br><br>";
+		}
+		else
+		{
+		    $this->queryCache[] = $result;
+			return count($this->queryCache) -1;
+		}
+	}
+	
 	/**
+	 * get rows from latest database query
+     * @return array
+	 */
+	 public function getRows()
+	 {
+	     return $this->result->fetch_array(MYSQLI_ASSOC);
+	 }
+	 
+    /**
     * Close the active connection
     * @return void
     */
@@ -73,28 +127,6 @@ class MysqliDriver extends Database
 	    $this->connection->close();
 	}
 
-/*	
-public function add($roll_number, $first_name, $last_name, $major, $semester, $grade)
-	  {
-	      
-	      $sql = 'INSERT INTO student (roll_number, first_name, last_name, major, semester, grade) VALUES(?, ?, ?, ?, ?, ?)';
-	      // $connection = new mysqli( DB_HOST, DB_USER, DB_PSW, DB_NAME);
-		
-  	      $stmt = $this->connection->prepare($sql);
-		  
-		  $stmt->bind_param('ssssss', $roll_number, $first_name, $last_name, $major, $semester, $grade );
-		  
-		  $result = "Data has been submitted succesfully with: ". $stmt->insert_id;
-		  $stmt->execute();
-		  $stmt->close();
-		  $connection->close();
-		  
-		  return array(
-		  'student_id' => $result, 
-		  );
-	  }
-	*/
-	
 	public function edit()
 	{
 	    

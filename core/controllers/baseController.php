@@ -73,7 +73,7 @@ public function handleController($controller_name, $options, $dbase)
 		if (array_key_exists($options[0],$this->actions)){
 		
 	        // Create Model object using model factory e.g. object of class 'StudentModel'
-        	$this->model = ModelFactory::modelName($controller_name, $dbase);
+        	$this->model = ModelFactory::modelName($controller_name, $this->addData, $this->table, $dbase);
 
 			// Go to action method defined in Base Model Class as result of URI action e.g. add()
 			$this->model->{$this->actions[$options[0]]}($this->table, $this->actionData[$options[0]]);

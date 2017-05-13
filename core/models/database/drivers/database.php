@@ -12,6 +12,7 @@ abstract class Database
 
     abstract function connect();
     abstract function executeQuery($queryStr);
+	abstract function cacheQuery($sql);
     abstract function close();
     abstract function insert($table, $addData);
     abstract function edit();

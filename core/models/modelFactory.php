@@ -10,7 +10,7 @@
 class ModelFactory
 {
     protected $options;
-	public $dbase;
+	public $dbase, $actionData, $table;
 /**
  * constructor
  *
@@ -25,10 +25,10 @@ public function __construct($name)
  * Create Model Object
  *
  */
-public static function modelName($name, $dbase)
+public static function modelName($name, $actionData, $table, $dbase)
 {
     $cName = $name . "Model";
-	return new $cName($dbase);
+	return new $cName($name, $actionData, $table, $dbase);
 }
 }
  

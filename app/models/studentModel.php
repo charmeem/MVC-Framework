@@ -10,11 +10,21 @@
  
 class StudentModel extends BaseModel
 {
-    public $dbase;
-    public function __construct (Registry $dbase)
+    public $dbase, $actionData;
+    public function __construct ($controller_name, $addData, $table, Registry $dbase)
 	{
 	$this->dbase = $dbase;
-	    }
+	$this->columns = $addData;
+	//var_dump($addData);
+	
+	// preparing Search query variable.
+	// ideally should be part of database driver but since we made database driver generic
+	// we are including controller specific query variables here
+	//$sql = "SELECT $addData from $table WHERE first_name like '%{$searchPhrase}'";
+	
+	// preparing List query variable
+	
+	}
 	
 	
 }

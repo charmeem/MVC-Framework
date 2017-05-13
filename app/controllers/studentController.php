@@ -11,8 +11,15 @@
 class StudentController extends BaseController
 {
    public $roll_number, $fname, $lname, $semester, $major, $grade, $controller_name;
-   public $addData = array(), $table, $action, $test, $searchData;
-   
+   public $addData = array(), $table, $action, $test, $searchData = array();
+   public $columns =array('roll_number',
+	                        'first_name',
+							'last_name',
+							'semester',
+							'major',
+							'grade'
+							);
+	
 /**
 * constructor
 *
@@ -22,6 +29,8 @@ public function __construct( $controller_name, $options, $dbase )
 {
     // Passing arguments from child to parent's constructor ..
     parent::__construct($controller_name, $options, $dbase);
+	
+	
 	
     	
 	/**
@@ -40,10 +49,11 @@ public function __construct( $controller_name, $options, $dbase )
 		$this->addData['major'] = $_POST['major'];
 	if(isset($_POST['grade'])) 
 		$this->addData['grade'] = $_POST['grade'];
-	    
+
 	// Search Data
     if(isset($_POST['student_search'])) 
-	    $this->searchData = $_POST['student_search'];	
+	    $this->searchData['search'] = $_POST['student_search'];
+		$this->searchData['columns'] = $this->columns;  // to be used in SELECT query command
 	
 	// Creating Action Data array to be used to call db actions and queries from BaseControlelr class
         $this->actionData = array (

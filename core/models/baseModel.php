@@ -30,8 +30,9 @@ class BaseModel
 	*/
 	public function search ($table, $searchData)
 	{
-	    $this->dbase->getObject('mysqlidb')->query($table, $searchData);
-    }
+	    $this->dbase->getObject('mysqlidb')->searchQuery($table, $searchData); 
+		//$this->dbase->getObject('mysqlidb')->getRows();
+	}
 	
 	
 }
