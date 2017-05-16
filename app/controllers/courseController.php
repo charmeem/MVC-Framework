@@ -13,9 +13,9 @@ class CourseController extends BaseController
 *
 * @return boolean TRUE
 */
-public function __construct($controller_name, $options, $dbase)
+public function __construct($controller_name, $options, $registry)
 {
-    parent::__construct($controller_name, $options, $dbase);
+    parent::__construct($controller_name, $options, $registry);
 }	 
 
 
@@ -24,7 +24,7 @@ public function __construct($controller_name, $options, $dbase)
 *
 * @return void
 */
-public function handleController($controller_name, $options, $dbase)
+public function handleController($controller_name, $options, $registry)
 {
     $view = new ViewManager($class_name, $options);
     $view->render();

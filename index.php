@@ -30,46 +30,49 @@ require_once APP_PATH . '/app/controllers/studentController.php' ;
 require_once APP_PATH . '/app/controllers/teacherController.php' ;
 require_once APP_PATH . '/app/controllers/courseController.php' ;
 require_once APP_PATH . '/app/models/studentModel.php' ;
-//require_once APP_PATH . '/app/models/teacherModel.php' ;
+require_once APP_PATH . '/app/models/teacherModel.php' ;
 //require_once APP_PATH . '/app/models/courseModel.php' ;
 
 
 
 require_once APP_PATH . '/core/views/viewManager.php' ;
+require_once APP_PATH . '/core/views/TemplateManager.php' ;
 
 //-----------------------------------------------------------------------------
 // Loads and processes view data
 //-----------------------------------------------------------------------------
 
 //Application starts here...
+
 //Creating instance of singleton Registry
-//unset($dbase);
-$dbase = Registry::getInstance();
+//unset($registry);
+$registry = Registry::getInstance();
 
 //Creating and Storing mysqli object
-$dbase->storeObject('MysqliDriver', 'mysqlidb');
+$registry->storeObject('MysqliDriver', 'mysqlidb');
 //Creating and Storing PDO object
-//$dbase->storeObject('pdoDriver', 'pdodb');
+//$registry->storeObject('pdoDriver', 'pdodb');
 //Creating objects for other Databases like MSSQL in future
-//$dbase->storeObject('MssqlDriver', 'mssqldb');
+//$registry->storeObject('MssqlDriver', 'mssqldb');
+
+//Creating and storing template object for view
+$registry->storeObject('TemplateManager', 'template');
 
 //Creating and storing authentication object
-//$dbase->storeObject('authentication', 'authenticate');
+//$registry->storeObject('authentication', 'authenticate');
 
 //Make connection to mysql database using mysqli
-$dbase->getObject('mysqlidb')->connect();	
+$registry->getObject('mysqlidb')->connect();	
 //Make connection to mysql database using PDO
-//$dbase->getObject('mysqlidb')->connect();	
+//$registry->getObject('mysqlidb')->connect();	
 
 //Make connection to other database engines like mssql database
-//$dbase->getObject('mssqldb')->connect();	
+//$registry->getObject('mssqldb')->connect();	
 				
     
 // Parses the URI
 $uri_array = parse_uri();
 
-//var_dump($uri_array);
-//Q? How do we avoid calling 'get_controller_classname' multiple times whenever new request is made
 
 $controller_name = get_controller_classname($uri_array);
 
@@ -78,14 +81,14 @@ if (empty($controller_name)) {
     $controller_name = 'Home';
 	}
 
-$options = $uri_array; // controller name is dropped and $uri_array left now with actions and parametrs, 
+$options = $uri_array; // controller name is dropped and $uri_array left now with actions and parameters, 
                        //due to reference argument passed to get_controller_classname
 
 // Create Controller Object
-$controller = ControllerFactory::controllerName($controller_name, $options, $dbase);
+$controller = ControllerFactory::controllerName($controller_name, $options, $registry);
 
 //Go to controller to render View and interact to Model 
-$controller->handleController($controller_name, $options, $dbase);
+$controller->handleController($controller_name, $options, $registry);
 
 //-----------------------------------------------------------------------------
 // Function declarations

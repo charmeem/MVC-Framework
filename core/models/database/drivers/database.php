@@ -11,14 +11,17 @@ abstract class Database
     protected function __construct(){}
 
     abstract function connect();
-    abstract function executeQuery($queryStr);
-	abstract function cacheQuery($sql);
-    abstract function close();
     abstract function insert($table, $addData);
+    abstract function searchQuery ($table, $searchData);
+	abstract function executeQuery($queryStr);
+	abstract function cacheQuery($sql);
+	abstract function resultsFromCache( $cache_id );
+	abstract function getRows();
+    abstract function close();
     abstract function edit();
     abstract function delete();
     //abstract function sanitizeData();
-
+    abstract function sanitizeData( $data );
     protected function __clone() {
         throw new Exception('Not Allowed');
     }

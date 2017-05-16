@@ -9,9 +9,8 @@
  <body>
   
   <header>
-   <h1>Congratulations! You have Successfully performed an ADD action</h1>
+   <h1>A record for Student {f_name} {l_name} has been successfully entered</h1>
   </header>
-  <!--<a href = "<?php echo $add_course; ?>"> Go to Add Student Section </a> -->
   <footer>
    <p class = "copyright">
     &copy 2017 Mubashir Mufti

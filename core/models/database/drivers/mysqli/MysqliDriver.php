@@ -76,10 +76,21 @@ class MysqliDriver extends Database
 		 
 		 $condition = $columns[0];
     	 $sql = "SELECT $column from $table WHERE $condition like '%{$searchPhrase}%'";
-		 $this->cacheQuery($sql);
+		 return $sql;
+		 //$this->cacheQuery($sql);
 		 
 	}
-	 
+	
+    /**
+	 * List query 
+	 *
+	 */
+	public function listQuery()
+    {
+	    $list = "SELECT * from $table";
+		$this-> executeQuery($list);
+	}	
+	
 	/**
     * Execute a query string
     * @param String the query
@@ -109,6 +120,16 @@ class MysqliDriver extends Database
 		}
 	}
 	
+	/**
+     * Get the rows from a cached query
+     * @param int the query cache pointer
+     * @return array the row
+     */
+    public function resultsFromCache( $cache_id )
+    {
+	    return $this->queryCache[$cache_id]->fetch_array(MYSQLI_ASSOC);
+    }
+    
 	/**
 	 * get rows from latest database query
      * @return array

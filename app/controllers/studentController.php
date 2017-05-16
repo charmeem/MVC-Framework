@@ -11,8 +11,10 @@
 class StudentController extends BaseController
 {
    public $roll_number, $fname, $lname, $semester, $major, $grade, $controller_name;
+
    public $addData = array(), $table, $action, $test, $searchData = array();
-   public $columns =array('roll_number',
+  
+  public $columns =array('roll_number',
 	                        'first_name',
 							'last_name',
 							'semester',
@@ -25,31 +27,21 @@ class StudentController extends BaseController
 *
 * @return boolean TRUE
 */
-public function __construct( $controller_name, $options, $dbase )
+public function __construct( $controller_name, $options, $registry )
 {
     // Passing arguments from child to parent's constructor ..
-    parent::__construct($controller_name, $options, $dbase);
+    parent::__construct($controller_name, $options, $registry);
 	
 	
-	
-    	
 	/**
 	 * Creating Query variables for database Drivers
 	 * addData array from action form output(student table columns) as input for INSERT
 	 */
-	if(isset($_POST['roll_number'])) 
-	    $this->addData['roll_number'] =$_POST['roll_number'];
-	if(isset($_POST['first_name'])) 
-		$this->addData['first_name'] = $_POST['first_name'];
-	if(isset($_POST['last_name'])) 
-		$this->addData['last_name'] = $_POST['last_name'];
-	if(isset($_POST['semester'])) 
-		$this->addData['semester'] = $_POST['semester'];
-	if(isset($_POST['major'])) 
-		$this->addData['major'] = $_POST['major'];
-	if(isset($_POST['grade'])) 
-		$this->addData['grade'] = $_POST['grade'];
-
+	foreach($this->columns as $column){
+	    if(isset($_POST[$column])) 
+	    $this->addData[$column] =$_POST[$column];
+	}	
+	
 	// Search Data
     if(isset($_POST['student_search'])) 
 	    $this->searchData['search'] = $_POST['student_search'];

@@ -19,12 +19,12 @@ abstract class BaseController implements ControllerInterface
       * @param $options array Options for the view
       * @return void
       */
-      public function __construct( $controller_name, $options, $dbase )
+      public function __construct( $controller_name, $options, $registry )
       {
 	      //Define an array for CRUD Actions : move to some common place later !!
 	      $this->actions = array(
 	       'add' => 'add',
-	       'list' => 'list',
+	       'listAll' => 'listAll',
 	       'edit' => 'edit',
 	       'delete' => 'delete',
 	       'search' => 'search',
@@ -33,7 +33,7 @@ abstract class BaseController implements ControllerInterface
            
 	      $this->controller_name = $controller_name;
 		  $this->options = $options;
-		  $this->dbase = $dbase;
+		  $this->registry = $registry;
 
 		  if (!is_array($options)) {
               throw new Exception("No options were supplied for the room.");
@@ -50,7 +50,7 @@ abstract class BaseController implements ControllerInterface
 *
 * @return void
 */
-public function handleController($controller_name, $options, $dbase)
+public function handleController($controller_name, $options, $registry)
 
 {
    
@@ -73,16 +73,73 @@ public function handleController($controller_name, $options, $dbase)
 		if (array_key_exists($options[0],$this->actions)){
 		
 	        // Create Model object using model factory e.g. object of class 'StudentModel'
-        	$this->model = ModelFactory::modelName($controller_name, $this->addData, $this->table, $dbase);
-
-			// Go to action method defined in Base Model Class as result of URI action e.g. add()
-			$this->model->{$this->actions[$options[0]]}($this->table, $this->actionData[$options[0]]);
+        	$this->model = ModelFactory::modelName($controller_name, $this->addData, $this->table, $registry);
+            // Taken from URI, go to action method in Base Model Class and execute it in the database e.g. add(), query()
+			$cache = $this->model->{$this->actions[$options[0]]}($this->table, $this->actionData[$options[0]]);
 			
-			//render view
-		    $view = new ViewManager($controller_name, $options);
-	        $view->render();
-	    }
+			switch ($options[0])
+			{
+			case  'add':
+                $this-> addAction();
+                break;
+            case 'search':
+                $this->searchAction($cache,$this->model);
+                break;
+            
+			}
+			
+	    } else {
+		    throw new exception("invalid action");
+		}
 	}
 }
 
+/**
+ * Creating Search View using Template
+ * @return void
+ */
+private function searchAction ($cache, $model)
+{
+			// using Template for view rendering
+			$searchPhrase = $this->model->sanitize($this->searchData);
+			// adding search phrase to tags array
+			$this->registry->getObject('template')->getPage()->addTag('query', $searchPhrase);
+			
+			
+			// Fetching array from query
+			$ntags = $this->model->result($cache);
+			if($ntags == null) {
+			    echo "Sorry the searched element does not exists";
+				exit;
+			} 	
+			//Adding this fetched result to the tags array
+	        foreach ($ntags as $k => $v){
+			$this->registry->getObject('template')->getPage()->addTag($k, $v);
+			}
+			//store template file to content variable
+			$this->registry->getObject('template')->buildFromTemplates(APP_PATH . '/app/views/' . $this->table .'/search.php');
+			
+			// replace tags with db content, and render the view
+            $this->registry->getObject('template')->parseOutput();
+            print $this->registry->getObject('template')->getPage()->getContent();
+
+            exit();
+}
+
+/**
+ * Creating Add View using Template
+ * @return void
+ */
+private function addAction ()
+{			
+    // adding tags 
+	$this->registry->getObject('template')->getPage()->addTag('f_name', $this->addData['first_name']);
+	$this->registry->getObject('template')->getPage()->addTag('l_name', $this->addData['last_name']);
+	//store template file to content variable
+	$this->registry->getObject('template')->buildFromTemplates(APP_PATH . '/app/views/' . $this->table .'/add.php');
+	// replace tags with db content, and render the view
+    $this->registry->getObject('template')->parseOutput();
+    print $this->registry->getObject('template')->getPage()->getContent();
+
+}
 }

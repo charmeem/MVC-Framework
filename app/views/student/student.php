@@ -43,7 +43,7 @@
     </section>
 	<br><br>
 	<section>
-	  <a href = "<?php echo $list; ?>"> List all students </a>
+	  <a href = "<?php echo $listAll; ?>"> List all students </a>
     </section>
 	<br><br>
 	<section>

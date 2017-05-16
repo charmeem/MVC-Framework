@@ -8,7 +8,7 @@
  */
 class BaseModel
 {
-    public $dbase;
+    public $registry;
 	public function __construct()
 	{
     }
@@ -20,7 +20,7 @@ class BaseModel
 	*/
 	public function add ($table, $addData) 
 	{
-	    $this->dbase->getObject('mysqlidb')->insert($table, $addData);
+	    $this->registry->getObject('mysqlidb')->insert($table, $addData);
     }
 	
     /**
@@ -30,9 +30,39 @@ class BaseModel
 	*/
 	public function search ($table, $searchData)
 	{
-	    $this->dbase->getObject('mysqlidb')->searchQuery($table, $searchData); 
-		//$this->dbase->getObject('mysqlidb')->getRows();
+	    // Build query command 
+		$sql = $this->registry->getObject('mysqlidb')->searchQuery($table, $searchData); 
+		$cache = $this->registry->getObject('mysqlidb')->cacheQuery($sql);
+		return $cache;
+		
 	}
 	
-	
+	/**
+	* List records from database
+	*
+	* @return void
+	*/
+	public function listAll ($table, $listData)
+	{
+	    $sql = $this->registry->getObject('mysqlidb')->listQuery($table); 
+		}
+	/**
+	* Sanitize data
+	*
+	* @return void
+	*/
+    public function sanitize ($searchData)
+    {
+	    return $this->registry->getObject('mysqlidb')->sanitizeData($searchData['search']);
+    }
+
+    /**
+	* Sanitize data
+	*
+	* @return void
+	*/
+    public function result($cache)
+    {
+	    return $this->registry->getObject('mysqlidb')->resultsFromCache( $cache );
+	}	
 }

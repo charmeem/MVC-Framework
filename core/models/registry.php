@@ -11,7 +11,7 @@ class Registry
     protected static $_singleton = null;
 	
 	// array of objects stored within
-	static $objects = array();
+	private static $objects = array();
 	
     protected function __construct(){}
 

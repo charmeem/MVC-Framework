@@ -8,7 +8,7 @@
  * @author     Muhammad Mubashir Mufti <mmufti@hotmail.com>
  */
  
-class StudentModel extends BaseModel
+class TeacherModel extends BaseModel
 {
     public $registry, $actionData;
     public function __construct ($controller_name, $addData, $table, Registry $registry)
