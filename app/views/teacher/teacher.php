@@ -14,7 +14,7 @@
 	    <form id="add_student" method="post" action="<?php echo $add; ?>">
 		    <h2>Add Teacher data</h2>
 			<label>
-			    First Name:
+			    First Name :    
 			    <input type="text" name="first_name" />
 			</label>
 			<label>
@@ -33,12 +33,15 @@
 			    Subject_Semester:
 			    <input type="text" name="sub2" />
 			</label>
+			<br><br>
 			<label>
 			    Subject_Semester:
 			    <input type="text" name="sub3" />
+				
+			    <input type="submit" Value="Enter" />
 			</label>
 			<br>
-			<input type="submit" Value="Enter" />
+			
 		</form>				
     </section>
 	<br><br>
