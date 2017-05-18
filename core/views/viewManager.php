@@ -48,6 +48,7 @@ public function render()
 {
     // Converts $vars array to individual variables
     extract($this->vars);
+	//var_dump($toto);
 	
     //Generate Controller View 
 	if (empty($this->options)) {

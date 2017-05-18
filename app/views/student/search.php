@@ -23,6 +23,19 @@
    <!-- END results -->
  </ul>
 
+ 
+ <form id = "edit" method = "post" action = "edit/{roll_number}" >
+        <label>
+		  <input type = "submit" name = "edit" value = "EDIT">
+        </label>
+ </form>	
+ <br>
+<form id = "delete" method = "post" action = "delete" >
+        <label>
+		  <input type = "submit" name = "edit" value = "DELETE">
+        </label>
+</form>	
+ 
   <footer>
    <p class = "copyright">
     &copy 2017 Mubashir Mufti

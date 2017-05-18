@@ -2,7 +2,7 @@
 /**
  * Generic database interaction methods
  *
- * Based on Singleton Patteren,Can be transferred later to mysli_driver class 
+ * Based on Singleton Pattern,Can be transferred later to mysli_driver class 
  *
  * @author     Muhammad Mubashir Mufti <mmufti@hotmail.com>
  */
@@ -38,14 +38,20 @@ class BaseModel
 	}
 	
 	/**
-	* List records from database
+	* Edit record from database
+	*
+	* Search query done, its primary key is used as a parameter to new action which is edit
+	* see search.php file, action attribute of form = edit
 	*
 	* @return void
 	*/
-	public function listAll ($table, $listData)
+	public function edit ($table, $editData)
 	{
-	    $sql = $this->registry->getObject('mysqlidb')->listQuery($table); 
-		}
+        $sql = $this->registry->getObject('mysqlidb')->searchQuery($table, $editData); 
+	    $cache = $this->registry->getObject('mysqlidb')->cacheQuery($sql);
+		return $cache;
+		
+	}
 	/**
 	* Sanitize data
 	*
@@ -57,7 +63,7 @@ class BaseModel
     }
 
     /**
-	* Sanitize data
+	* Fetch rows array from cached data
 	*
 	* @return void
 	*/

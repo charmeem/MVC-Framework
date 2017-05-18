@@ -35,7 +35,7 @@ private function replaceTags( )
 {
     // get the tags in the page
     $tags = $this->page->getTags();
-	
+	var_dump($tags);
     // foreach record relating to the query...
 		foreach( $tags as $tag => $data ) {
            	// replace the content	    	
@@ -47,34 +47,6 @@ private function replaceTags( )
 	}
 
 	
-/**
-     * Replace content on the page with data from the database
-     * @param String $tag the tag defining the area of content
-     * @param int $cacheId the queries ID in the query cache
-     * @return void
-     */
-    private function replaceDBTags( $tag, $cacheId )
-    {
-	    $block = '';
-		$blockOld = $this->page->getBlock( $tag );
-		
-		// foreach record relating to the query...
-		while ($tags = $this->registry->getObject('mysqlidb')->resultsFromCache( $cacheId ) )
-		{
-			$blockNew = $blockOld;
-			// create a new block of content with the results replaced into it
-			foreach ($tags as $ntag => $data) 
-	       	{
-	        	$blockNew = str_replace("{" . $ntag . "}", $data, $blockNew); 
-	        }
-	        $block .= $blockNew;
-		}
-		$pageContent = $this->page->getContent();
-		// remove the seperator in the template, cleaner HTML
-		$newContent = str_replace( '<!-- START ' . $tag . ' -->' . $blockOld . '<!-- END ' . $tag . ' -->', $block, $pageContent );
-		// update the page content
-		$this->page->setContent( $newContent );
-	}
     
 /**
  * Set the content of the page based on a number of templates

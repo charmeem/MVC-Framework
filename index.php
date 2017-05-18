@@ -47,7 +47,7 @@ require_once APP_PATH . '/core/views/TemplateManager.php' ;
 //Creating instance of singleton Registry
 //unset($registry);
 $registry = Registry::getInstance();
-
+var_dump($registry);
 //Creating and Storing mysqli object
 $registry->storeObject('MysqliDriver', 'mysqlidb');
 //Creating and Storing PDO object
@@ -63,6 +63,7 @@ $registry->storeObject('TemplateManager', 'template');
 
 //Make connection to mysql database using mysqli
 $registry->getObject('mysqlidb')->connect();	
+
 //Make connection to mysql database using PDO
 //$registry->getObject('mysqlidb')->connect();	
 
@@ -72,8 +73,9 @@ $registry->getObject('mysqlidb')->connect();
     
 // Parses the URI
 $uri_array = parse_uri();
-
-
+//var_dump($uri_array);
+//var_dump($_SERVER['REQUEST_URI']);
+    
 $controller_name = get_controller_classname($uri_array);
 
 //Go to default home controller if URI does not contain any.
@@ -89,6 +91,9 @@ $controller = ControllerFactory::controllerName($controller_name, $options, $reg
 
 //Go to controller to render View and interact to Model 
 $controller->handleController($controller_name, $options, $registry);
+
+// Close connection to the database
+//$registry->getObject('mysqlidb')->close();	
 
 //-----------------------------------------------------------------------------
 // Function declarations

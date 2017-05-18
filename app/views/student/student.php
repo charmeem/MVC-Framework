@@ -42,9 +42,11 @@
 		</form>				
     </section>
 	<br><br>
+	<!--
 	<section>
 	  <a href = "<?php echo $listAll; ?>"> List all students </a>
     </section>
+	-->
 	<br><br>
 	<section>
 	  <form id = "search" method = "post" action = "<?php echo $search; ?>" >

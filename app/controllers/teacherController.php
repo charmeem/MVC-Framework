@@ -33,24 +33,25 @@ public function __construct( $controller_name, $options, $registry )
     parent::__construct($controller_name, $options, $registry);
 	
 	
-	/**
-	 * Creating Query variables for database Drivers
-	 * addData array from action form output(student table columns) as input for INSERT
-	 */
+	// Add Data array : from action form output(student table columns) as input for INSERT
 	foreach($this->columns as $column){
 	    if(isset($_POST[$column])) 
 	    $this->addData[$column] =$_POST[$column];
 	}	
 	
-	// Search Data
+	// Search Data array 
     if(isset($_POST['teacher_search'])) 
 	    $this->searchData['search'] = $_POST['teacher_search'];
 		$this->searchData['columns'] = $this->columns;  // to be used in SELECT query command
 	
+	
+	
 	// Creating Action Data array to be used to call db actions and queries from BaseControlelr class
-        $this->actionData = array (
-		   'add'    => $this->addData,
-		   'search' => $this->searchData,
+    $this->actionData = array (
+	   'add'    => $this->addData,
+	   'search' => $this->searchData,
+	   'edit' => $this->searchData,
+		   
 		   );
 		  
 	

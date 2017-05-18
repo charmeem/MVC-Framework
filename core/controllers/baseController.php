@@ -28,6 +28,7 @@ abstract class BaseController implements ControllerInterface
 	       'edit' => 'edit',
 	       'delete' => 'delete',
 	       'search' => 'search',
+		   'update' => 'update',
 	       );
 		  
            
@@ -51,9 +52,8 @@ abstract class BaseController implements ControllerInterface
 * @return void
 */
 public function handleController($controller_name, $options, $registry)
-
 {
-   
+    // If only controller in URI, no action
     if (empty($options)) {
 	// Generate initial Controller View (form inputs)
     $view = new ViewManager($controller_name, $options);
@@ -71,11 +71,14 @@ public function handleController($controller_name, $options, $registry)
 	} else {
 	    //Generate Action View result from form submit action above
 		if (array_key_exists($options[0],$this->actions)){
-		
+		    
+			//Don't want model or db functions for 'edit' action
+			
 	        // Create Model object using model factory e.g. object of class 'StudentModel'
         	$this->model = ModelFactory::modelName($controller_name, $this->addData, $this->table, $registry);
             // Taken from URI, go to action method in Base Model Class and execute it in the database e.g. add(), query()
 			$cache = $this->model->{$this->actions[$options[0]]}($this->table, $this->actionData[$options[0]]);
+			
 			
 			switch ($options[0])
 			{
@@ -85,6 +88,9 @@ public function handleController($controller_name, $options, $registry)
             case 'search':
                 $this->searchAction($cache,$this->model);
                 break;
+            case 'edit':
+                $this->editAction($cache,$this->model);
+                break;
             
 			}
 			
@@ -92,38 +98,6 @@ public function handleController($controller_name, $options, $registry)
 		    throw new exception("invalid action");
 		}
 	}
-}
-
-/**
- * Creating Search View using Template
- * @return void
- */
-private function searchAction ($cache, $model)
-{
-			// using Template for view rendering
-			$searchPhrase = $this->model->sanitize($this->searchData);
-			// adding search phrase to tags array
-			$this->registry->getObject('template')->getPage()->addTag('query', $searchPhrase);
-			
-			
-			// Fetching array from query
-			$ntags = $this->model->result($cache);
-			if($ntags == null) {
-			    echo "Sorry the searched element does not exists";
-				exit;
-			} 	
-			//Adding this fetched result to the tags array
-	        foreach ($ntags as $k => $v){
-			$this->registry->getObject('template')->getPage()->addTag($k, $v);
-			}
-			//store template file to content variable
-			$this->registry->getObject('template')->buildFromTemplates(APP_PATH . '/app/views/' . $this->table .'/search.php');
-			
-			// replace tags with db content, and render the view
-            $this->registry->getObject('template')->parseOutput();
-            print $this->registry->getObject('template')->getPage()->getContent();
-
-            exit();
 }
 
 /**
@@ -142,4 +116,67 @@ private function addAction ()
     print $this->registry->getObject('template')->getPage()->getContent();
 
 }
+
+/**
+ * Creating Search View using Template
+ * @return void
+ */
+private function searchAction ($cache, $model)
+{
+			// using Template for view rendering
+			$searchPhrase = $this->model->sanitize($this->searchData);
+			// adding search phrase to tags array
+			$this->registry->getObject('template')->getPage()->addTag('query', $searchPhrase);
+			
+			
+			// Fetching search query array from database via mOdel 
+			$ntags = $this->model->result($cache);
+			if($ntags == null) {
+			    echo "Sorry the searched element does not exists";
+				exit;
+			} 	
+			//Adding this fetched result to the tags array
+	        foreach ($ntags as $k => $v){
+			$this->registry->getObject('template')->getPage()->addTag($k, $v);
+			}
+			var_dump($ntags);
+			//store template file to content variable
+			$this->registry->getObject('template')->buildFromTemplates(APP_PATH . '/app/views/' . $this->table .'/search.php');
+			
+			// replace tags with db content, and render the view
+            $this->registry->getObject('template')->parseOutput();
+            
+			print $this->registry->getObject('template')->getPage()->getContent();
+			
+            exit();
+}
+
+/**
+ * Creating Edit View using Template
+ * @return void
+ */
+private function editAction ($cache, $model)
+{
+    // Fetching search query array from database via mOdel 
+	$ntags = $this->model->result($cache);
+	if($ntags == null) {
+	    echo "Sorry the searched element does not exists";
+		exit;
+	} 	
+	//Adding this fetched result to the tags array
+	foreach ($ntags as $k => $v){
+		$this->registry->getObject('template')->getPage()->addTag($k, $v);
+	}
+
+    //store template file to content variable
+	$this->registry->getObject('template')->buildFromTemplates(APP_PATH . '/app/views/' . $this->table .'/edit.php');
+			
+	// replace tags with db content, and render the view
+    $this->registry->getObject('template')->parseOutput();
+            
+	print $this->registry->getObject('template')->getPage()->getContent();
+	exit();	
+}
+
+
 }

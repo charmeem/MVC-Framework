@@ -14,16 +14,29 @@
   
  <ul>
    <!-- START results -->
-   <li>First Name  = {first_name}</li>
-   <li>Last Name   = {last_name}</li>
-   <li>Education    = {education}</li>
-   <li>Subject1 and Semester       = {sub1}</li>
-   <li>Subject2 and Semester       = {sub2}</li>
-   <li>Subject3 and Semester       = {sub3}</li>
+   <li>First Name             = {first_name}</li>
+   <li>Last Name              = {last_name}</li>
+   <li>Education              = {education}</li>
+   <li>Subject1 and Semester  = {sub1}</li>
+   <li>Subject2 and Semester  = {sub2}</li>
+   <li>Subject3 and Semester  = {sub3}</li>
       <!-- END results -->
  </ul>
 
-  <footer>
+ <form id = "edit" method = "post" action = "edit" >
+        <label>
+		  <input type = "submit" name = "edit" value = "EDIT">
+        </label>
+ </form>	
+ <br>
+<form id = "delete" method = "post" action = "delete" >
+        <label>
+		  <input type = "submit" name = "edit" value = "DELETE">
+        </label>
+</form>	
+ 
+
+ <footer>
    <p class = "copyright">
     &copy 2017 Mubashir Mufti
 	</p>
