@@ -9,13 +9,13 @@
  <body>
   
   <header>
-   <h1>Record for Student has been successfully deleted</h1>
+   <h1>Record {message}</h1>
   </header>
   
 <a href = "../">
     <button>Back to Main page</button>
-</a>
-
+</a>	
+  
   <footer>
    <p class = "copyright">
     &copy 2017 Mubashir Mufti

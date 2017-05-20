@@ -9,12 +9,51 @@
  <body>
   
   <header>
-   <h1>Welcome to the Course Ware section of virtual CAMPUS</h1>
-   <p class="tagline">
-     Here You can add New Courses, list, search, edit and delete the records.
-   </p><!--/.tagline-->
+   <h1>Welcome to the Course section of virtual CAMPUS</h1>
+    <section>
+	    <form id="add_course" method="post" action="<?php echo $add; ?>">
+		    <h2>Add Course data</h2>
+			<label>
+			    Course ID:
+			    <input type="text" name="id" />
+			</label>
+			<label>
+			    Course Name:
+			    <input type="text" name="name" />
+			</label>
+			<label>
+			    Offered Semester:
+			    <input type="text" name="semester" />
+			</label>
+			<label>
+			    Credit Hours:
+			    <input type="text" name="credit" />
+			</label>
+				<input type="submit" Value="Enter" />
+		</form>				
+    </section>
+	
+	<br>
+	
+	<section>
+	  <form id = "search" method = "post" action = "<?php echo $search; ?>" >
+        <label>
+		  Search Course :
+		  <input type = "text" name = "course_search" >
+		  <input type = "submit" name = "search" value = "SEARCH">
+        </label>
+      </form>		
+	</section>
   </header>
-  <!--<a href = "<?php echo $add_course; ?>"> Go to Add Student Section </a> -->
+  <br><br>
+
+<a href = "http://localhost/webapp/">
+    <button>Back to Main page</button>
+</a>
+
+<br><br><br><br><br><br><br><br>
+  
+  
   <footer>
    <p class = "copyright">
     &copy 2017 Mubashir Mufti

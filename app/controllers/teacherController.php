@@ -14,7 +14,8 @@ class TeacherController extends BaseController
 
    public $addData = array(), $table, $action, $test, $searchData = array();
   
-  public $columns =array(   'first_name',
+  public $columns =array(   
+                            'first_name',
 							'last_name',
 							'education',
 							'sub1',
@@ -44,17 +45,40 @@ public function __construct( $controller_name, $options, $registry )
 	    $this->searchData['search'] = $_POST['teacher_search'];
 		$this->searchData['columns'] = $this->columns;  // to be used in SELECT query command
 	
+	// Edit Data: this is parameter part of URI ( controler/action/parameter)
+	if(isset($options[1]))
+	   $this->editData['search'] = $options[1];
+	   // option[1] obtained from action attr. of search form which will be used as
+       // condition in Edit( actualy search) query	   
+	   
+	   $this->editData['columns'] = $this->columns;
 	
+	// Update Data: this is parameter part of URI ( controler/action/parameter)
+	if(isset($options[1]))
+	   $this->updateData['update'] = $options[1];
+	   // option[1] obtained from action attr. of edit form which will be used as
+       // condition in UPDATE query	   
+	   
+	   $this->updateData['columns'] = $this->columns;
+	
+	// Delete Data:this is parameter part of URI ( controler/action/parameter)
+	if(isset($options[1]))
+       $this->deleteData['delete'] = $options[1];
+	   // option[1] is value of roll_number obtained from action attr. of search form
+       //  which will be used as condition in DELETE query	   
+	   
+	   $this->deleteData['columns'] = $this->columns;
 	
 	// Creating Action Data array to be used to call db actions and queries from BaseControlelr class
-    $this->actionData = array (
-	   'add'    => $this->addData,
-	   'search' => $this->searchData,
-	   'edit' => $this->searchData,
-		   
+        $this->actionData = array (
+		   'add'    => $this->addData,
+		   'search' => $this->searchData,
+		   'edit' => $this->editData,
+		   'delete' => $this->deleteData,
+		   'update' => $this->updateData,
 		   );
-		  
 	
+		
 }
 
 

@@ -35,7 +35,7 @@ private function replaceTags( )
 {
     // get the tags in the page
     $tags = $this->page->getTags();
-	var_dump($tags);
+	
     // foreach record relating to the query...
 		foreach( $tags as $tag => $data ) {
            	// replace the content	    	

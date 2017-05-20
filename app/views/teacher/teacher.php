@@ -12,7 +12,13 @@
    <h1>Welcome to the Teacher section of virtual CAMPUS</h1>
     <section>
 	    <form id="add_student" method="post" action="<?php echo $add; ?>">
-		    <h2>Add Teacher data</h2>
+		    
+			<h2>Add Teacher data</h2>
+			
+			<label>
+			       
+			    <input type="hidden" name="id" />
+			</label>
 			<label>
 			    First Name :    
 			    <input type="text" name="first_name" />
@@ -33,7 +39,7 @@
 			    Subject_Semester:
 			    <input type="text" name="sub2" />
 			</label>
-			<br><br>
+			
 			<label>
 			    Subject_Semester:
 			    <input type="text" name="sub3" />
@@ -45,22 +51,27 @@
 		</form>				
     </section>
 	<br><br>
-	<section>
-	  <a href = "<?php echo $listAll; ?>"> List all Teachers </a>
-    </section>
-	<br><br>
-	<section>
-	  <form id = "search" method = "post" action = "<?php echo $search; ?>" >
+	 <form id = "search" method = "post" action = "<?php echo $search; ?>" >
         <label>
-		  <h2>Search Teacher : </h2>
+		  Search Teacher :
 		  <input type = "text" name = "teacher_search" >
 		  <input type = "submit" name = "search" value = "SEARCH">
         </label>
       </form>		
 	</section>
-	 
+	
+  <br><br>
+
+<a href = "http://localhost/webapp/">
+    <button>Back to Main page</button>
+</a>
+
    </header>
-  <footer>
+
+   <br><br><br><br><br><br><br><br>
+
+
+   <footer>
    <p class = "copyright">
     &copy 2017 Mubashir Mufti
 	</p>

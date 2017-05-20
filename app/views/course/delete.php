@@ -9,7 +9,7 @@
  <body>
   
   <header>
-   <h1>Record for Student has been successfully deleted</h1>
+   <h1>Course has been successfully deleted</h1>
   </header>
   
 <a href = "../">

@@ -45,19 +45,36 @@ public function __construct( $controller_name, $options, $registry )
 		$this->searchData['columns'] = $this->columns;  // to be used in SELECT query command
 	
 	// Edit Data: this is parameter part of URI ( controler/action/parameter)
-	   if(isset($options[1]))
+	if(isset($options[1]))
 	   $this->editData['search'] = $options[1];
-	   $this->editData['columns'] = $this->columns;
+	   // option[1] obtained from action attr. of search form which will be used as
+       // condition in Edit( actualy search) query	   
 	   
-	// Delete Data:
+	   $this->editData['columns'] = $this->columns;
+	
+	// Update Data: this is parameter part of URI ( controler/action/parameter)
+	if(isset($options[1]))
+	   $this->updateData['update'] = $options[1];
+	   // option[1] obtained from action attr. of edit form which will be used as
+       // condition in UPDATE query	   
+	   
+	   $this->updateData['columns'] = $this->columns;
+	
+	// Delete Data:this is parameter part of URI ( controler/action/parameter)
+	if(isset($options[1]))
+       $this->deleteData['delete'] = $options[1];
+	   // option[1] is value of roll_number obtained from action attr. of search form
+       //  which will be used as condition in DELETE query	   
+	   
+	   $this->deleteData['columns'] = $this->columns;
 	
 	// Creating Action Data array to be used to call db actions and queries from BaseControlelr class
         $this->actionData = array (
 		   'add'    => $this->addData,
 		   'search' => $this->searchData,
 		   'edit' => $this->editData,
-		   //'delete' => $this->deleteData,
-		   //'update' => $this->updateData,
+		   'delete' => $this->deleteData,
+		   'update' => $this->updateData,
 		   );
 		  
 	

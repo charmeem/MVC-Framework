@@ -11,7 +11,7 @@
   <header>
    <h1>Student section of virtual CAMPUS</h1>
     <section>
-	    <form id="update_teacher" method="post" action="update">
+	    <form method = "post" action = "../update/{roll_number}">
 		    <h2>Edit Student data</h2>
 			<label>
 			    Roll Number:
@@ -33,18 +33,19 @@
 			    Major:
 			    <input type="text" name="major" value = "{major}"/>
 			</label>
-			<br>
+			<br><br>
 			<label>
-			    Average Grade obtained:
+			    Grade:
 			    <input type="text" name="grade" value = "{grade}"/>
 			</label>
-	
-			    <input type="submit" Value="Update Record" />
-			</label>
-			<br>
-			
-		</form>				
+			<label>
+		  <input type = "submit"  value = "Update Record">
+        </label>
+		</form>
+		
     </section>
+	
+	
 	<br><br>
 	 
    </header>

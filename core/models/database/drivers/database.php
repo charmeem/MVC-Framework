@@ -18,8 +18,6 @@ abstract class Database
 	abstract function resultsFromCache( $cache_id );
 	abstract function getRows();
     abstract function close();
-    abstract function edit();
-    abstract function delete();
     //abstract function sanitizeData();
     abstract function sanitizeData( $data );
     protected function __clone() {

@@ -31,7 +31,7 @@ require_once APP_PATH . '/app/controllers/teacherController.php' ;
 require_once APP_PATH . '/app/controllers/courseController.php' ;
 require_once APP_PATH . '/app/models/studentModel.php' ;
 require_once APP_PATH . '/app/models/teacherModel.php' ;
-//require_once APP_PATH . '/app/models/courseModel.php' ;
+require_once APP_PATH . '/app/models/courseModel.php' ;
 
 
 
@@ -47,7 +47,7 @@ require_once APP_PATH . '/core/views/TemplateManager.php' ;
 //Creating instance of singleton Registry
 //unset($registry);
 $registry = Registry::getInstance();
-var_dump($registry);
+
 //Creating and Storing mysqli object
 $registry->storeObject('MysqliDriver', 'mysqlidb');
 //Creating and Storing PDO object
@@ -73,8 +73,6 @@ $registry->getObject('mysqlidb')->connect();
     
 // Parses the URI
 $uri_array = parse_uri();
-//var_dump($uri_array);
-//var_dump($_SERVER['REQUEST_URI']);
     
 $controller_name = get_controller_classname($uri_array);
 

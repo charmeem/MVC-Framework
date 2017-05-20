@@ -33,20 +33,16 @@
 			    Major:
 			    <input type="text" name="major" />
 			</label>
-			<br>
+			<br><br>
 			<label>
-			    Average Grade obtained:
+			    Grade:
 			    <input type="text" name="grade" />
 			</label>
 			<input type="submit" Value="Enter" />
 		</form>				
     </section>
 	<br><br>
-	<!--
-	<section>
-	  <a href = "<?php echo $listAll; ?>"> List all students </a>
-    </section>
-	-->
+	
 	<br><br>
 	<section>
 	  <form id = "search" method = "post" action = "<?php echo $search; ?>" >
@@ -57,8 +53,16 @@
         </label>
       </form>		
 	</section>
-	 
-   </header>
+  </header>
+  <br><br>
+
+<a href = "http://localhost/webapp/">
+    <button>Back to Main page</button>
+</a>
+
+<br><br><br><br><br><br><br><br>
+  
+  
   <footer>
    <p class = "copyright">
     &copy 2017 Mubashir Mufti

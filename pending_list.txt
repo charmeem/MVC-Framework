@@ -1,0 +1,8 @@
+
+pending items:
+
+- front end css/html/javascript/jquery
+- sanitizing/ validation of input data
+- autoloading include files
+- model interface , see notes in basemodel class
+- show all rows with search query result

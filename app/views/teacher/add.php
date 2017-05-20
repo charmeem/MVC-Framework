@@ -9,8 +9,16 @@
  <body>
   
   <header>
-   <h1>A record for Teacher {f_name} {l_name} has been successfully entered</h1>
+   <h1>A record for Teacher {first_name} {last_name} has been successfully entered</h1>
   </header>
+  
+  <a href = "../student">
+    <button>Back to Main page</button>
+</a>
+
+<br><br><br><br>
+<br><br>
+
   <footer>
    <p class = "copyright">
     &copy 2017 Mubashir Mufti

@@ -51,46 +51,96 @@ class MysqliDriver extends Database
 		$values = substr($values, 0, -1);
 			
 		$insert = "INSERT INTO $table ({$fields}) VALUES({$values})";
+		
 		$this->executeQuery($insert);  
 		return true;
 		}
 	/**
 	 * Search query 
 	 *
+	 * @return sql
 	 */
 	 public function searchQuery ($table, $searchData)
 	 {
         // separating columns from $searchData array  	    
 		$columns = $searchData['columns'];
-		 
+		
+		$condition = $columns[0];
+    	  
 	     $column = "";
+		 
+		 // creating comma separated string
 		 foreach ($columns as $f => $v) {
 		     $column .= "$v ,";
 			 }
 		 
          // removing training comma
 	     $column = substr($column, 0, -1);
-         
-		 // sanitize search input
+         // sanitize search input
          $searchPhrase = $this -> sanitizeData($searchData['search']);
 		 
-		 $condition = $columns[0];
-    	 $sql = "SELECT $column from $table WHERE $condition like '%{$searchPhrase}%'";
-		 return $sql;
-		 //$this->cacheQuery($sql);
+		 //EXAMPLE: "SELECT roll_number, first_name, last_name,semester, major, grade from student WHERE (roll_number like //'2' OR semester like '2')";
+		
+		$sql = "SELECT $column from $table WHERE (";
+		
+		foreach ( $columns as $index => $condition) {
+		    $sql .= $condition . " LIKE " . "'%" . $searchPhrase. "%'" . " OR ";
+		}
+		//Removing trailing OR
+		$sql = substr ($sql, 0, -3);
+		
+		$sql .= ")";
+		
+		return $sql;
 		 
 	}
 	
-    /**
-	 * List query 
-	 *
+	/**
+	 * Update query 
+	 * @return $sql
 	 */
-	public function listQuery()
-    {
-	    $list = "SELECT * from $table";
-		$this-> executeQuery($list);
-	}	
+	 public function updateQuery ($table, $updateData)
+	 {
+        // separating columns from $updateData array  	    
+		$columns = $updateData['columns'];
+		$primaryKey = $columns[0];
+	          
+    	// sanitize search input
+        $updateRecord = $this -> sanitizeData($updateData['update']);
+				 
+		$sql = "UPDATE " . $table . " SET ";
+		
+        foreach($_POST as $f => $v) {
+		    $sql .=  $f . " = '{$v}' ,";
+		}
+    	
+		// removing training comma
+	     $sql = substr($sql, 0, -1);
+         
+		$sql .= "WHERE " . $primaryKey ." = " . "'" . $_POST[$primaryKey] . "'";
+		
+		return $sql;
+		 
+	}
 	
+	/**
+	 * Delete record 
+	 * We are not using cache query for delete and insert operation..
+	 * @return 
+	 */
+	public function deleteQuery( $table, $deleteData )
+    {
+	    // Selecting roll_number(primaryKey) as condition 
+		$columns = $deleteData['columns'];
+		$condition = $columns[0];
+    	
+		//$deleteData['delete'] is parameter in URI obtained from action attribute in form
+    	$sql = "DELETE FROM {$table} WHERE {$condition} =" . $deleteData['delete'];
+    	$this->executeQuery( $sql );
+		
+		return true;
+    }
+        
 	/**
     * Execute a query string
     * @param String the query
@@ -128,6 +178,7 @@ class MysqliDriver extends Database
     public function resultsFromCache( $cache_id )
     {
 	    return $this->queryCache[$cache_id]->fetch_array(MYSQLI_ASSOC);
+		
     }
     
 	/**
@@ -148,15 +199,7 @@ class MysqliDriver extends Database
 	    $this->connection->close();
 	}
 
-	public function edit()
-	{
-	    
-	}
 	
-	public function delete()
-	{
-	    
-	}
 	/**
      * Sanitize data
      * @param String the data to be sanitized

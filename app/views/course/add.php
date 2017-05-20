@@ -9,10 +9,10 @@
  <body>
   
   <header>
-   <h1>Record for Student has been successfully deleted</h1>
+   <h1>Course record for {id}: {name} has been successfully entered</h1>
   </header>
   
-<a href = "../">
+<a href = "../course">
     <button>Back to Main page</button>
 </a>
 
