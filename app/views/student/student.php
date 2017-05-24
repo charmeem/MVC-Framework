@@ -44,6 +44,14 @@
 	<br><br>
 	
 	<br><br>
+	<!--Adding listAll action -->
+	<form id = "list" method = "post" action = "student/listAll" >
+        <label>
+		  <input type = "submit" name = "listAll" value = "List All Records">
+        </label>
+    </form>	
+
+	<!--Adding Search action -->
 	<section>
 	  <form id = "search" method = "post" action = "<?php echo $search; ?>" >
         <label>

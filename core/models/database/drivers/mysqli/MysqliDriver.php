@@ -55,6 +55,25 @@ class MysqliDriver extends Database
 		$this->executeQuery($insert);  
 		return true;
 		}
+		
+	/**
+	 * List query 
+	 *
+	 * @return sql
+	 */
+	public function listQuery($table, $listAllData)
+	{
+	    $sql = "SELECT * FROM $table ORDER BY LENGTH( $listAllData[0]), $listAllData[0]";
+		
+		$cache = $this->cacheQuery($sql);
+		
+		if($this->numRowsFromCache($cache) == 0 ) {
+		    echo "Sorry no result exists for this query!";
+		} else {
+		return $cache;
+         }		
+	}
+		
 	/**
 	 * Search query 
 	 *
@@ -91,8 +110,8 @@ class MysqliDriver extends Database
 		
 		$sql .= ")";
 		
-		return $sql;
-		 
+		$cache = $this->cacheQuery($sql);
+		return $cache; 
 	}
 	
 	/**
@@ -119,7 +138,8 @@ class MysqliDriver extends Database
          
 		$sql .= "WHERE " . $primaryKey ." = " . "'" . $_POST[$primaryKey] . "'";
 		
-		return $sql;
+		$cache = $this->cacheQuery($sql);
+		return $cache; 
 		 
 	}
 	
@@ -135,7 +155,7 @@ class MysqliDriver extends Database
 		$condition = $columns[0];
     	
 		//$deleteData['delete'] is parameter in URI obtained from action attribute in form
-    	$sql = "DELETE FROM {$table} WHERE {$condition} =" . $deleteData['delete'];
+    	$sql = "DELETE FROM {$table} WHERE {$condition} =" . "'" . $deleteData['delete'] . "'";
     	$this->executeQuery( $sql );
 		
 		return true;
@@ -150,7 +170,7 @@ class MysqliDriver extends Database
 	{
 	    $result = $this->connection->query($queryStr);
 		if (!$result) echo 'Connection Fail' . mysqli_connect_error() . "<br><br>";
-		}
+	}
 	
 	/*
     * Store a query in query cache to be used for processing
@@ -165,6 +185,7 @@ class MysqliDriver extends Database
 		}
 		else
 		{
+	
 		    $this->queryCache[] = $result;
 			return count($this->queryCache) -1;
 		}
@@ -179,6 +200,16 @@ class MysqliDriver extends Database
     {
 	    return $this->queryCache[$cache_id]->fetch_array(MYSQLI_ASSOC);
 		
+    }
+    
+	/**
+     * Get the number of rows from the cache
+     * @param int the query cache pointer
+     * @return int the number of rows
+     */
+    public function numRowsFromCache( $cache_id )
+    {
+    	return $this->queryCache[$cache_id]->num_rows;	
     }
     
 	/**

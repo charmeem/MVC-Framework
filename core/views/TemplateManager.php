@@ -36,15 +36,25 @@ private function replaceTags( )
     // get the tags in the page
     $tags = $this->page->getTags();
 	
-    // foreach record relating to the query...
+	// foreach record relating to the query...
 		foreach( $tags as $tag => $data ) {
-           	// replace the content	    	
+           	
+			// Check if tag value is an array as in the case of list
+			if ( !is_array( $data)) {
+			// replace the content	    	
 		    	$newContent = str_replace( '{' . $tag . '}', $data, $this->page->getContent() );
 
 		    	// update the pages content
 		    	$this->page->setContent( $newContent );
+	    } else {
+		        foreach( $data as $f => $v) {
+				    $newContent = str_replace( '{' . $f . '}', $v, $this->page->getContent() );
+					// update the pages content
+		    	    $this->page->setContent( $newContent );
+                }
+		    }
 	}
-	}
+}
 
 	
     
@@ -60,7 +70,6 @@ public function buildFromTemplates()
     foreach( $bits as $bit) {
 	
     $content .= file_get_contents($bit);
-
 	}
     $this->page->setContent($content);    
 }

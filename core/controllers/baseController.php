@@ -9,9 +9,9 @@
  * @author     Muhammad Mubashir Mufti <mmufti@hotmail.com>
  */
  
-abstract class BaseController implements ControllerInterface
+abstract class BaseController
 {
-    private $controller_name, $actions;
+    private $controller_name, $actions, $view;
     
  	/**
       * Constructor
@@ -42,7 +42,11 @@ abstract class BaseController implements ControllerInterface
           
 		  // generating table name from controller_name
 	      $this->table = lcfirst($controller_name);
-			  
+		
+		  // Generate initial Controller View (form inputs)
+          $this->view = new ViewManager($controller_name, $options);
+	   
+		
 	   }
 	  
     
@@ -57,18 +61,16 @@ public function handleController($controller_name, $options, $registry)
 {
     // If only controller in URI is specified
     if (empty($options)) {
-	    // Generate initial Controller View (form inputs)
-        $view = new ViewManager($controller_name, $options);
-	   
+	    
 	    // Adding action properties (URI) for view Form submission( utilizing __set function in viewManager)
 	    // to be processed again in index.php
 	    foreach ($this->actions as $key=>$value) { 
-	    $view->{$this->actions[$key]} = APP_URI. '/' . lcfirst($controller_name) . '/' . $key;
+	    $this->view->{$this->actions[$key]} = APP_URI. '/' . lcfirst($controller_name) . '/' . $key;
 	} 
 	// example output: $view->$add = APP_URI./Student/add;  add is the var defined in action attribute of student.php
 	
 	//render view file, render action view when form submit buttons pressed
-	$view->render();
+	$this->view->render();
 	
 	} else {
 	    // Action is also specified 
@@ -77,15 +79,22 @@ public function handleController($controller_name, $options, $registry)
 		    
 			// Create Model object using model factory e.g. object of class 'StudentModel'
         	$this->model = ModelFactory::modelName($controller_name, $this->addData, $this->table, $registry);
-            // Taken from URI, go to action method in Base Model Class and execute it in the database e.g. add(), query()
+            
+			//Taken from URI, directing to action method in Base Model Class and execute it in the database e.g. add(), query()
 			$cache = $this->model->{$this->actions[$options[0]]}($this->table, $this->actionData[$options[0]]);
 			
+						
+			// Not efficient coding..replaced by next lines..
+			/*
 			switch ($options[0])
 			{
 			case  'add':
                 $this-> addAction();
                 break;
-            case 'search':
+			case  'listAll':
+                $this-> listAction($cache, $this->model);
+                break;
+			case 'search':
                 $this->searchAction($cache,$this->model);
                 break;
             case 'edit':
@@ -97,9 +106,12 @@ public function handleController($controller_name, $options, $registry)
             case 'delete':
                 $this->deleteAction();
                 break;
-            
-			}
-			
+            }
+			*/
+	        
+			$getAction = $options[0].'Action';
+			$this->$getAction($cache,$this->model);
+					
 	    } else {
 		    throw new exception("invalid action");
 		}
@@ -112,30 +124,55 @@ public function handleController($controller_name, $options, $registry)
  */
 private function addAction ()
 {			
-    // adding tags 
+    // adding tags from form $_POST inputs
 	$this->registry->getObject('template')->getPage()->addTag($this->columns[0], $this->addData[$this->columns[0]]);
 	$this->registry->getObject('template')->getPage()->addTag($this->columns[1], $this->addData[$this->columns[1]]);
-	//store template file to content variable
+	
+	//Reading and storing the template file in content variable
 	$this->registry->getObject('template')->buildFromTemplates(APP_PATH . '/app/views/' . $this->table .'/add.php');
-	// replace tags with db content, and render the view
+	
+	// replacing tags in template file with tags , and rendering the view
     $this->registry->getObject('template')->parseOutput();
     print $this->registry->getObject('template')->getPage()->getContent();
 }
 
 /**
- * Creating Search View using Template. Cache query method used here
+ * Generating listAll View WITHOUT templating, adopting Simple approach 
+ * 
  * @return void
+ */
+private function listAllAction ($cache, $model)
+{
+	$list = array();
+	
+	// Iterating through query result rows one by one and storing it into an array 
+	while ($ntags = $this->model->result($cache)) {
+	    $list[] = $ntags;
+	}
+	
+	// Call view manager to handle view function
+	$this->view->setData('list', $list);
+	$this->view->nrender(lcfirst($this->controller_name), $this->options[0]);
+			
+}
+
+
+/**
+ * Creating Search View using Template. Cache query method used here
+ * @return 
  */
 private function searchAction ($cache, $model)
 {
 			// using Template for view rendering
 			$searchPhrase = $this->model->sanitize($this->searchData);
-			// adding search phrase to tags array
+
+			// adding search phrase to tags array from Form $_POST input
 			$this->registry->getObject('template')->getPage()->addTag('query', $searchPhrase);
 			
 			
 			// Fetching search query array from database via mOdel 
 			$ntags = $this->model->result($cache);
+			
 			if($ntags == null) {
 			    echo "Sorry the searched element does not exists";
 				exit;
@@ -144,10 +181,10 @@ private function searchAction ($cache, $model)
 	        foreach ($ntags as $k => $v){
 			$this->registry->getObject('template')->getPage()->addTag($k, $v);
 			}
-			//store template file to content variable
+			//read and store template file in content variable
 			$this->registry->getObject('template')->buildFromTemplates(APP_PATH . '/app/views/' . $this->table .'/search.php');
 			
-			// replace tags with db content, and render the view
+			// replace template contents with tags, and render the view
             $this->registry->getObject('template')->parseOutput();
             
 			print $this->registry->getObject('template')->getPage()->getContent();
@@ -157,7 +194,7 @@ private function searchAction ($cache, $model)
 
 /**
  * Creating Edit View using Template
- * @return void
+ * @return 
  */
 private function editAction ($cache, $model)
 {
@@ -184,11 +221,11 @@ private function editAction ($cache, $model)
 
 /**
  * Creating Update View using Template
- * @return void
+ * @return 
  */
 private function updateAction ($cache, $model)
 {			
-    	// Failing as UPDATE return TRUE instead of object
+    	// Following code Failing as UPDATE return TRUE instead of object
 /*
     // Fetching search query array from database via mOdel 
 	$ntags = $this->model->result($cache);

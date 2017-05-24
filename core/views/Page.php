@@ -39,6 +39,7 @@ public function addTag($key, $data)
 public function setContent($content)
 {
     $this->content = $content;
+	
 }
 
 /**

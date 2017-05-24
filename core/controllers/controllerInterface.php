@@ -1,5 +1,5 @@
 <?php
-/**
+/** NOT USED AT THE MOMENT
  * Controller Interface Class
  *
  * Interface Class implemented by BaseController class and other children
@@ -12,4 +12,5 @@
  interface ControllerInterface 
  {
      public function handleController($controller_name, $options, $registry);
+ 
  }

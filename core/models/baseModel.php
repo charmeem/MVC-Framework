@@ -27,17 +27,28 @@ class BaseModel
     }
 	
     /**
+	* List query string from database
+	*
+	* @return cache
+	*/
+	public function listAll ($table, $listAllData)
+	{
+	    // Build and execute cache query command 
+		$cache = $this->registry->getObject('mysqlidb')->listQuery($table, $listAllData); 
+		return $cache;
+	}
+	
+	/**
 	* Search query string from database
 	*
 	* @return void
 	*/
 	public function search ($table, $searchData)
 	{
-	    // Build query command 
-		$sql = $this->registry->getObject('mysqlidb')->searchQuery($table, $searchData); 
-		$cache = $this->registry->getObject('mysqlidb')->cacheQuery($sql);
-		return $cache;
+	    // Build and execute cache query command 
+		$cache = $this->registry->getObject('mysqlidb')->searchQuery($table, $searchData); 
 		
+		return $cache;
 	}
 	
 	/**
@@ -50,8 +61,8 @@ class BaseModel
 	*/
 	public function edit ($table, $editData)
 	{
-        $sql = $this->registry->getObject('mysqlidb')->searchQuery($table, $editData); 
-	    $cache = $this->registry->getObject('mysqlidb')->cacheQuery($sql);
+        $cache = $this->registry->getObject('mysqlidb')->searchQuery($table, $editData); 
+	    
 		return $cache;
 	}
 	
@@ -65,11 +76,10 @@ class BaseModel
 	*/
 	public function update ($table, $updateData)
 	{
-        $sql = $this->registry->getObject('mysqlidb')->updateQuery($table, $updateData); 
+        $cache = $this->registry->getObject('mysqlidb')->updateQuery($table, $updateData); 
 	    
 		// Query is stored in $cache to be utilized in Template/View in controller file
-		$cache = $this->registry->getObject('mysqlidb')->cacheQuery($sql);
-
+		
 		return $cache;
 	}
 	

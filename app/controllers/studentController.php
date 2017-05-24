@@ -12,7 +12,7 @@ class StudentController extends BaseController
 {
    public $roll_number, $fname, $lname, $semester, $major, $grade, $controller_name;
 
-   public $addData = array(), $table, $action, $test, $searchData = array();
+   public  $listAllData, $table, $action, $test, $addData = array(), $searchData = array();
   
   public $columns =array('roll_number',
 	                        'first_name',
@@ -38,6 +38,9 @@ public function __construct( $controller_name, $options, $registry )
 	    if(isset($_POST[$column])) 
 	    $this->addData[$column] =$_POST[$column];
 	}	
+	
+	//lIstAll database
+	$this->listAllData = $this->columns;
 	
 	// Search Data:
     if(isset($_POST['student_search'])) 
@@ -71,6 +74,7 @@ public function __construct( $controller_name, $options, $registry )
 	// Creating Action Data array to be used to call db actions and queries from BaseControlelr class
         $this->actionData = array (
 		   'add'    => $this->addData,
+		   'listAll' => $this->listAllData,
 		   'search' => $this->searchData,
 		   'edit' => $this->editData,
 		   'delete' => $this->deleteData,

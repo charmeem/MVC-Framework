@@ -10,6 +10,7 @@
  */
 class ViewManager
 {
+    public $data = array();
     protected $controller_name,
 	          $css_path,
 			  $options = array(),
@@ -66,4 +67,26 @@ public function render()
     }
     require_once $view_filepath;
 }
+
+/**
+ * setting variables to be used in view
+ */
+public function setData($var, $data)
+{
+    $this->data[$var] = $data;
+}
+
+/**
+ * Rendering  view
+ */
+public function nrender($controller, $action)
+{
+    $css_path = APP_URI . '/public/css/' . $action. '.css';
+    $this->setData('CSSPath', $css_path);
+    $data = $this->data;
+	$path = APP_PATH . '/app/views/' . $controller .'/' . $action. '.php';
+    include($path);
+
+}
+
 }
