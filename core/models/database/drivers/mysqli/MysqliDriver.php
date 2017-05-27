@@ -63,7 +63,20 @@ class MysqliDriver extends Database
 	 */
 	public function listQuery($table, $listAllData)
 	{
-	    $sql = "SELECT * FROM $table ORDER BY LENGTH( $listAllData[0]), $listAllData[0]";
+	
+	    $column = $listAllData['columns'];
+		
+		// If no orderby is selected then sort by roll_number
+		if(isset($listAllData['orderby'])) {
+		
+		    $orderby = $listAllData['orderby'];
+		    $sql = "SELECT * FROM $table ORDER BY $orderby";
+
+		} else {
+		
+		 $sql = "SELECT * FROM $table ORDER BY LENGTH( $column[0]), $column[0]";
+		
+		}	
 		
 		$cache = $this->cacheQuery($sql);
 		

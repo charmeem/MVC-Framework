@@ -41,19 +41,19 @@
 			<input type="submit" Value="Enter" />
 		</form>				
     </section>
-	<br><br>
+	<br>
 	
-	<br><br>
 	<!--Adding listAll action -->
-	<form id = "list" method = "post" action = "student/listAll" >
+	<form id = "list" method = "post" action = "<?php echo $listAll ?>" >
         <label>
 		  <input type = "submit" name = "listAll" value = "List All Records">
         </label>
     </form>	
-
+    <br>
+	
 	<!--Adding Search action -->
 	<section>
-	  <form id = "search" method = "post" action = "<?php echo $search; ?>" >
+	  <form id = "search" method = "post" action = "<?php echo $search ?>" >
         <label>
 		  Search Student :
 		  <input type = "text" name = "student_search" >

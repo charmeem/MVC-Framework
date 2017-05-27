@@ -40,6 +40,11 @@ public function __construct( $controller_name, $options, $registry )
 	    $this->addData[$column] =$_POST[$column];
 	}	
 	
+	//lIstAll database
+	if(isset($options[1]))
+	$this->listAllData['orderby'] = $options[1];
+	$this->listAllData['columns'] = $this->columns;
+	
 	// Search Data array 
     if(isset($_POST['teacher_search'])) 
 	    $this->searchData['search'] = $_POST['teacher_search'];
@@ -72,6 +77,7 @@ public function __construct( $controller_name, $options, $registry )
 	// Creating Action Data array to be used to call db actions and queries from BaseControlelr class
         $this->actionData = array (
 		   'add'    => $this->addData,
+		   'listAll' => $this->listAllData,
 		   'search' => $this->searchData,
 		   'edit' => $this->editData,
 		   'delete' => $this->deleteData,

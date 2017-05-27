@@ -36,6 +36,7 @@
 			    <input type="text" name="sub1" />
 			</label>
 			<label>
+			<br><br>
 			    Subject_Semester:
 			    <input type="text" name="sub2" />
 			</label>
@@ -47,10 +48,18 @@
 			    <input type="submit" Value="Enter" />
 			</label>
 			<br>
-			
-		</form>				
+	</form>				
     </section>
-	<br><br>
+	<br>
+	
+	<!--Adding listAll action -->
+	<form id = "list" method = "post" action = "<?php echo $listAll ?>" >
+        <label>
+		  <input type = "submit" name = "listAll" value = "List All Records">
+        </label>
+    </form>	
+    <br>
+	
 	 <form id = "search" method = "post" action = "<?php echo $search; ?>" >
         <label>
 		  Search Teacher :

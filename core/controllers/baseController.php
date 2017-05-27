@@ -62,8 +62,9 @@ public function handleController($controller_name, $options, $registry)
     // If only controller in URI is specified
     if (empty($options)) {
 	    
-	    // Adding action properties (URI) for view Form submission( utilizing __set function in viewManager)
-	    // to be processed again in index.php
+	    /* Adding action properties (URI) for view Form submission( utilizing __set function in viewManager)
+	     * to be processed again in index.php
+		 /* e.g. 'http://localhost/webapp/student/search' */
 	    foreach ($this->actions as $key=>$value) { 
 	    $this->view->{$this->actions[$key]} = APP_URI. '/' . lcfirst($controller_name) . '/' . $key;
 	} 
@@ -82,8 +83,7 @@ public function handleController($controller_name, $options, $registry)
             
 			//Taken from URI, directing to action method in Base Model Class and execute it in the database e.g. add(), query()
 			$cache = $this->model->{$this->actions[$options[0]]}($this->table, $this->actionData[$options[0]]);
-			
-						
+									
 			// Not efficient coding..replaced by next lines..
 			/*
 			switch ($options[0])
@@ -144,7 +144,7 @@ private function addAction ()
 private function listAllAction ($cache, $model)
 {
 	$list = array();
-	
+	var_dump($this->options);
 	// Iterating through query result rows one by one and storing it into an array 
 	while ($ntags = $this->model->result($cache)) {
 	    $list[] = $ntags;
@@ -152,8 +152,9 @@ private function listAllAction ($cache, $model)
 	
 	// Call view manager to handle view function
 	$this->view->setData('list', $list);
+	$this->view->setData('column', $this->columns);
 	$this->view->nrender(lcfirst($this->controller_name), $this->options[0]);
-			
+		exit();	
 }
 
 

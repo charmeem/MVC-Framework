@@ -36,6 +36,11 @@ public function __construct( $controller_name, $options, $registry )
 	    $this->addData[$column] =$_POST[$column];
 	}	
 	
+	//listAll database
+	if(isset($options[1]))
+	$this->listAllData['orderby'] = $options[1];
+	$this->listAllData['columns'] = $this->columns;
+	
 	// Search Data array 
     if(isset($_POST['course_search'])) 
 	    $this->searchData['search'] = $_POST['course_search'];
@@ -69,6 +74,7 @@ public function __construct( $controller_name, $options, $registry )
         $this->actionData = array (
 		   'add'    => $this->addData,
 		   'search' => $this->searchData,
+		   'listAll' => $this->listAllData,
 		   'edit' => $this->editData,
 		   'delete' => $this->deleteData,
 		   'update' => $this->updateData,

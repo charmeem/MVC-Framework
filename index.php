@@ -33,8 +33,6 @@ require_once APP_PATH . '/app/models/studentModel.php' ;
 require_once APP_PATH . '/app/models/teacherModel.php' ;
 require_once APP_PATH . '/app/models/courseModel.php' ;
 
-
-
 require_once APP_PATH . '/core/views/viewManager.php' ;
 require_once APP_PATH . '/core/views/TemplateManager.php' ;
 
@@ -73,7 +71,6 @@ $registry->getObject('mysqlidb')->connect();
     
 // Parses the URI
 $uri_array = parse_uri();
-    
 $controller_name = get_controller_classname($uri_array);
 
 //Go to default home controller if URI does not contain any.

@@ -32,10 +32,16 @@
 				<input type="submit" Value="Enter" />
 		</form>				
     </section>
+    <br>
+
+	<!--Adding listAll action -->
+	<form id = "list" method = "post" action = "<?php echo $listAll ?>" >
+        <label>
+		  <input type = "submit" name = "listAll" value = "List All Records">
+        </label>
+    </form>	
+    <br>
 	
-	<br>
-	
-	<section>
 	  <form id = "search" method = "post" action = "<?php echo $search; ?>" >
         <label>
 		  Search Course :
@@ -43,7 +49,7 @@
 		  <input type = "submit" name = "search" value = "SEARCH">
         </label>
       </form>		
-	</section>
+	
   </header>
   <br><br>
 

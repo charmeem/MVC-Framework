@@ -40,7 +40,9 @@ public function __construct( $controller_name, $options, $registry )
 	}	
 	
 	//lIstAll database
-	$this->listAllData = $this->columns;
+	if(isset($options[1]))
+	$this->listAllData['orderby'] = $options[1];
+	$this->listAllData['columns'] = $this->columns;
 	
 	// Search Data:
     if(isset($_POST['student_search'])) 

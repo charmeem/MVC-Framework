@@ -82,7 +82,9 @@ public function setData($var, $data)
 public function nrender($controller, $action)
 {
     $css_path = APP_URI . '/public/css/' . $action. '.css';
+	$actionPath = APP_URI . '/' . $controller . '/'. $action;
     $this->setData('CSSPath', $css_path);
+	$this->setData('actionPath', $actionPath);
     $data = $this->data;
 	$path = APP_PATH . '/app/views/' . $controller .'/' . $action. '.php';
     include($path);
