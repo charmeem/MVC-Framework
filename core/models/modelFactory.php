@@ -16,19 +16,19 @@ class ModelFactory
  *
  * @return boolean TRUE
  */
-public function __construct($name)
+public function __construct()
 {
-    $this->name = $name;   
+    //$this->name = $name;   
 }
 
 /**
  * Create Model Object
  *
  */
-public static function modelName($name, $addData, $table, $registry)
+public function modelName($name, $table, $registry)
 {
     $cName = $name . "Model";
-	return new $cName($name, $addData, $table, $registry);
+	return new $cName( $table, $registry);
 }
 }
  

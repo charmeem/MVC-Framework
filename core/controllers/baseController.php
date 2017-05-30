@@ -9,9 +9,9 @@
  * @author     Muhammad Mubashir Mufti <mmufti@hotmail.com>
  */
  
-abstract class BaseController
+ class BaseController
 {
-    private $controller_name, $actions, $view;
+    private $controller_name, $actions, $view, $model;
     
  	/**
       * Constructor
@@ -43,9 +43,7 @@ abstract class BaseController
 		  // generating table name from controller_name
 	      $this->table = lcfirst($controller_name);
 		
-		  // Generate initial Controller View (form inputs)
-          $this->view = new ViewManager($controller_name, $options);
-	   
+		  
 		
 	   }
 	  
@@ -55,13 +53,22 @@ abstract class BaseController
 *
 * Loads and outputs the view's markup based on the action
 *
+* I have applied 3 View Techniques:
+*  1. viewManager
+*  2. templateManager 
+*  3. using include and php vars . See 'listAll' routine 
+*
 * @return void
 */
-public function handleController($controller_name, $options, $registry)
+public function handleController($controller_name, $options, $registry, ModelFactory $factory)
 {
     // If only controller in URI is specified
     if (empty($options)) {
 	    
+		// Generate initial Controller View (form inputs)
+          $this->view = new ViewManager($controller_name, $options);
+	   
+	   
 	    /* Adding action properties (URI) for view Form submission( utilizing __set function in viewManager)
 	     * to be processed again in index.php
 		 /* e.g. 'http://localhost/webapp/student/search' */
@@ -78,12 +85,18 @@ public function handleController($controller_name, $options, $registry)
 	    //Generate Action View result from form submit action above
 		if (array_key_exists($options[0],$this->actions)){
 		    
-			// Create Model object using model factory e.g. object of class 'StudentModel'
-        	$this->model = ModelFactory::modelName($controller_name, $this->addData, $this->table, $registry);
+			/**Create Model object using model factory e.g. object of class 'StudentModel'
+			 *
+			 * Modification: I have removed STATIC from Factory
+			 * as used dependency injection instead of STATIC.
+			 * Reason is STATIC methods cannot be MOCKED in PHUNIT tests
+			 *
+			 */ 
+        	$model = $factory->modelName($controller_name, $this->table, $registry);
             
 			//Taken from URI, directing to action method in Base Model Class and execute it in the database e.g. add(), query()
-			$cache = $this->model->{$this->actions[$options[0]]}($this->table, $this->actionData[$options[0]]);
-									
+			$cache = $model->{$this->actions[$options[0]]}($this->table, $this->actionData[$options[0]]);
+			
 			// Not efficient coding..replaced by next lines..
 			/*
 			switch ($options[0])
@@ -110,7 +123,7 @@ public function handleController($controller_name, $options, $registry)
 			*/
 	        
 			$getAction = $options[0].'Action';
-			$this->$getAction($cache,$this->model);
+			return $this->$getAction($cache,$model);
 					
 	    } else {
 		    throw new exception("invalid action");
@@ -146,7 +159,7 @@ private function listAllAction ($cache, $model)
 	$list = array();
 	var_dump($this->options);
 	// Iterating through query result rows one by one and storing it into an array 
-	while ($ntags = $this->model->result($cache)) {
+	while ($ntags = $model->result($cache)) {
 	    $list[] = $ntags;
 	}
 	
@@ -154,7 +167,7 @@ private function listAllAction ($cache, $model)
 	$this->view->setData('list', $list);
 	$this->view->setData('column', $this->columns);
 	$this->view->nrender(lcfirst($this->controller_name), $this->options[0]);
-		exit();	
+		//exit();	
 }
 
 
@@ -165,14 +178,14 @@ private function listAllAction ($cache, $model)
 private function searchAction ($cache, $model)
 {
 			// using Template for view rendering
-			$searchPhrase = $this->model->sanitize($this->searchData);
+			$searchPhrase = $model->sanitize($this->searchData);
 
 			// adding search phrase to tags array from Form $_POST input
 			$this->registry->getObject('template')->getPage()->addTag('query', $searchPhrase);
 			
 			
 			// Fetching search query array from database via mOdel 
-			$ntags = $this->model->result($cache);
+			$ntags = $model->result($cache);
 			
 			if($ntags == null) {
 			    echo "Sorry the searched element does not exists";
@@ -190,7 +203,7 @@ private function searchAction ($cache, $model)
             
 			print $this->registry->getObject('template')->getPage()->getContent();
 			
-            exit();
+          //  exit();
 }
 
 /**
@@ -200,7 +213,7 @@ private function searchAction ($cache, $model)
 private function editAction ($cache, $model)
 {
     // Fetching search query array from database via mOdel 
-	$ntags = $this->model->result($cache);
+	$ntags = $model->result($cache);
 	if($ntags == null) {
 	    echo "Sorry the searched element does not exists";
 		exit;
@@ -217,7 +230,7 @@ private function editAction ($cache, $model)
     $this->registry->getObject('template')->parseOutput();
             
 	print $this->registry->getObject('template')->getPage()->getContent();
-	exit();
+	//exit();
 }
 
 /**
@@ -250,7 +263,7 @@ private function updateAction ($cache, $model)
     $this->registry->getObject('template')->parseOutput();
             
 	print $this->registry->getObject('template')->getPage()->getContent();
-	exit();
+	//exit();
 }
 
 private function deleteAction ()

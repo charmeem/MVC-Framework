@@ -84,8 +84,11 @@ $options = $uri_array; // controller name is dropped and $uri_array left now wit
 // Create Controller Object
 $controller = ControllerFactory::controllerName($controller_name, $options, $registry);
 
+// Creating Factory object to be injected into method call below.
+$factory = new ModelFactory();
+
 //Go to controller to render View and interact to Model 
-$controller->handleController($controller_name, $options, $registry);
+$controller->handleController($controller_name, $options, $registry, $factory);
 
 // Close connection to the database
 //$registry->getObject('mysqlidb')->close();	

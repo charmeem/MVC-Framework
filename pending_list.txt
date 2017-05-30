@@ -1,6 +1,8 @@
 
 pending items:
 
+- Adjust routing/index file by comparing different examples
+- remove template view and replace by viewmanager as in listAll method
 -namespace
 - front end css/html/javascript/jquery
 - sanitizing/ validation of input data

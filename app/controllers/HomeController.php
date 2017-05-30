@@ -22,7 +22,7 @@ public function __construct($controller_name, $options, $registry)
 *
 * @return void
 */
-public function handleController($controller_name, $options, $registry)
+public function handleController($controller_name, $options, $registry, ModelFactory $factory)
 {
     $view = new ViewManager($controller_name, $options);
 

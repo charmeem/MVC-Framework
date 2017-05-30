@@ -11,10 +11,9 @@
 class CourseModel extends BaseModel
 {
     public $registry, $actionData;
-    public function __construct ($controller_name, $addData, $table, Registry $registry)
+    public function __construct ($table, Registry $registry)
 	{
 	$this->registry = $registry;
-	$this->columns = $addData;
 	
 	}
 	
