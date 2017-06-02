@@ -12,6 +12,7 @@
  class BaseController
 {
     private $controller_name, $actions, $view, $model;
+    private	$listAllData,$searchData, $editData, $deleteData, $updateData, $addData;
     
  	/**
       * Constructor
@@ -146,6 +147,7 @@ private function addAction ()
 	// replacing tags in template file with tags , and rendering the view
     $this->registry->getObject('template')->parseOutput();
     print $this->registry->getObject('template')->getPage()->getContent();
+	return true;
 }
 
 /**

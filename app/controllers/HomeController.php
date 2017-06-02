@@ -7,7 +7,7 @@
 
 class HomeController extends BaseController
 {
- private $controller_name;
+ protected $controller_name;
 /**
 * constructor
 *
