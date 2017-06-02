@@ -71,24 +71,33 @@ $registry->getObject('mysqlidb')->connect();
     
 // Parses the URI
 $uri_array = parse_uri();
+
+// Get controller name
 $controller_name = get_controller_classname($uri_array);
 
-//Go to default home controller if URI does not contain any.
-if (empty($controller_name)) {
+if (empty ($controller_name)) {
+    //Go to default home controller if URI does not contain any.
     $controller_name = 'Home';
-	}
+	$model = NULL;
+} else {
+       // create model object employing dependency injection
+       $factory = new ModelFactory();
+       $model = $factory->modelName($controller_name, lcfirst($controller_name), $registry);
+    }
 
 $options = $uri_array; // controller name is dropped and $uri_array left now with actions and parameters, 
                        //due to reference argument passed to get_controller_classname
 
-// Create Controller Object
-$controller = ControllerFactory::controllerName($controller_name, $options, $registry);
+// Generate initial Controller View (form inputs)
+$view = new ViewManager($controller_name, $options);
+	
+					   
+// Create Controller Object , employing dependency injection for $view
+$controller = ControllerFactory::controllerName($controller_name, $options, $registry, $view);
 
-// Creating Factory object to be injected into method call below.
-$factory = new ModelFactory();
-
+  
 //Go to controller to render View and interact to Model 
-$controller->handleController($controller_name, $options, $registry, $factory);
+$controller->handleController($controller_name, $options, $registry, $model);
 
 // Close connection to the database
 //$registry->getObject('mysqlidb')->close();	

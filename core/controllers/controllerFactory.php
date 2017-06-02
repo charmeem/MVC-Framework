@@ -16,10 +16,10 @@ class ControllerFactory
  *
  * @return boolean TRUE
  */
-public static function controllerName($controller_name, $options, $registry)
+public static function controllerName($controller_name, $options, $registry, $view)
 {
     $cName = $controller_name . "Controller";
-	return new $cName($controller_name, $options, $registry);
+	return new $cName($controller_name, $options, $registry, $view);
 }
 }
  

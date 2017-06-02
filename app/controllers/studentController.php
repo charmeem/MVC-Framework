@@ -27,16 +27,18 @@ class StudentController extends BaseController
 *
 * @return boolean TRUE
 */
-public function __construct( $controller_name, $options, $registry )
+public function __construct( $controller_name, $options, $registry, $view )
 {
     // Passing arguments from child to parent's constructor ..
-    parent::__construct($controller_name, $options, $registry);
+    parent::__construct($controller_name, $options, $registry, $view);
 	
-	
+		
 	// Add Data : Student Table Columns to be used as input for INSERT in db
 	foreach($this->columns as $column){
 	    if(isset($_POST[$column])) 
 	    $this->addData[$column] =$_POST[$column];
+	
+	   
 	}	
 	
 	//lIstAll database

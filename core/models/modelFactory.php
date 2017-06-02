@@ -28,7 +28,7 @@ public function __construct()
 public function modelName($name, $table, $registry)
 {
     $cName = $name . "Model";
-	return new $cName( $table, $registry);
+	return new $cName($table, $registry);
 }
 }
  

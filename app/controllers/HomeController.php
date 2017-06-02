@@ -13,16 +13,16 @@ class HomeController extends BaseController
 *
 * @return boolean TRUE
 */
-public function __construct($controller_name, $options, $registry)
+public function __construct($controller_name, $options, $registry, $view)
 {
-    parent::__construct($controller_name, $options, $registry);
+    parent::__construct($controller_name, $options, $registry, $view);
 }	 
 /**
 * Loads and outputs view's markup
 *
 * @return void
 */
-public function handleController($controller_name, $options, $registry, ModelFactory $factory)
+public function handleController($controller_name, $options, $registry, $model)
 {
     $view = new ViewManager($controller_name, $options);
 

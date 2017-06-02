@@ -19,30 +19,30 @@
       * @param $options array Options for the view
       * @return void
       */
-      public function __construct( $controller_name, $options, $registry )
+      public function __construct( $controller_name, $options, $registry, $view )
       {
 	      //Define an array for CRUD Actions : move to some common place later !!
 	      $this->actions = array(
-	       'add' => 'add',
-	       'listAll' => 'listAll',
-	       'edit' => 'edit',
-	       'delete' => 'delete',
-	       'search' => 'search',
-		   'update' => 'update',
-	       );
+	           'add' => 'add',
+	           'listAll' => 'listAll',
+	           'edit' => 'edit',
+	           'delete' => 'delete',
+	           'search' => 'search',
+		       'update' => 'update',
+	           );
 		  
-           
-	      $this->controller_name = $controller_name;
+          $this->controller_name = $controller_name;
 		  $this->options = $options;
 		  $this->registry = $registry;
-
+          $this->view = $view;
 		  if (!is_array($options)) {
               throw new Exception("No options were supplied for the room.");
           }
           
 		  // generating table name from controller_name
 	      $this->table = lcfirst($controller_name);
-		
+		  
+		  
 		  
 		
 	   }
@@ -60,15 +60,11 @@
 *
 * @return void
 */
-public function handleController($controller_name, $options, $registry, ModelFactory $factory)
+public function handleController($controller_name, $options, $registry, $model)
 {
     // If only controller in URI is specified
     if (empty($options)) {
 	    
-		// Generate initial Controller View (form inputs)
-          $this->view = new ViewManager($controller_name, $options);
-	   
-	   
 	    /* Adding action properties (URI) for view Form submission( utilizing __set function in viewManager)
 	     * to be processed again in index.php
 		 /* e.g. 'http://localhost/webapp/student/search' */
@@ -85,14 +81,17 @@ public function handleController($controller_name, $options, $registry, ModelFac
 	    //Generate Action View result from form submit action above
 		if (array_key_exists($options[0],$this->actions)){
 		    
-			/**Create Model object using model factory e.g. object of class 'StudentModel'
+			/**
+			 *Create Model object using model factory e.g. object of class 'StudentModel'
 			 *
 			 * Modification: I have removed STATIC from Factory
 			 * as used dependency injection instead of STATIC.
-			 * Reason is STATIC methods cannot be MOCKED in PHUNIT tests
-			 *
+			 * Reason is STATIC methods cannot be MOCKED in PHUNIT tests AND
+			 * furthermore singleton requirement for database interface already implemented in 'registry' Class
+             *
 			 */ 
-        	$model = $factory->modelName($controller_name, $this->table, $registry);
+        	// Moving next line to index.php for more clear dependency injection
+			//$model = $factory->modelName($controller_name, $this->table, $registry);
             
 			//Taken from URI, directing to action method in Base Model Class and execute it in the database e.g. add(), query()
 			$cache = $model->{$this->actions[$options[0]]}($this->table, $this->actionData[$options[0]]);
@@ -157,7 +156,7 @@ private function addAction ()
 private function listAllAction ($cache, $model)
 {
 	$list = array();
-	var_dump($this->options);
+	
 	// Iterating through query result rows one by one and storing it into an array 
 	while ($ntags = $model->result($cache)) {
 	    $list[] = $ntags;

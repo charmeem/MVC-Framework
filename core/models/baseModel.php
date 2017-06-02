@@ -2,7 +2,7 @@
 /**
  * Generic database interaction methods
  *
- * Based on Singleton Pattern,Can be transferred later to mysli_driver class 
+ * Based on Singleton Pattern,Can be transferred later to mysqli_driver class 
  *
  * @author     Muhammad Mubashir Mufti <mmufti@hotmail.com>
  */
@@ -24,6 +24,7 @@ class BaseModel
 	public function add ($table, $addData) 
 	{
 	    $this->registry->getObject('mysqlidb')->insert($table, $addData);
+		
     }
 	
     /**

@@ -24,10 +24,10 @@ class CourseController extends BaseController
 *
 * @return boolean TRUE
 */
-public function __construct( $controller_name, $options, $registry )
+public function __construct( $controller_name, $options, $registry, $view )
 {
     // Passing arguments from child to parent's constructor ..
-    parent::__construct($controller_name, $options, $registry);
+    parent::__construct($controller_name, $options, $registry, $view);
 	
 	
 	// Add Data array : from action form output(student table columns) as input for INSERT
