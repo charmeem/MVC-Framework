@@ -80,7 +80,7 @@ if (empty ($controller_name)) {
     $controller_name = 'Home';
 	$model = NULL;
 } else {
-       // create model object employing dependency injection
+       // create model object employing dependency injection to get the model class name
        $factory = new ModelFactory();
        $model = $factory->modelName($controller_name, lcfirst($controller_name), $registry);
     }

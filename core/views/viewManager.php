@@ -30,7 +30,14 @@ public function __construct( $controller_name, $options)
 	$this->options = $options;
 }
 /**
-* Collect dynamic properties and stores into $vars array
+* magic or overloading Methods
+* examples: __set(), __call()
+* __set() is used for property overloading while __call() for method overloading
+* overloading method is used when initialy not-defined property or method is called
+* In other words it is handling the dynamically created properties and methods
+*
+* Here we using some dynamic variables(properties) in view.php files which are not declared initialled
+* hence resulted in calling __set() function as below which store them into $vars array
 *
 * @param $key string The variable name
 * @param $var string The variable value
