@@ -2,6 +2,8 @@
 /**
  * Course Controller
  *
+ * Contains application specific variables.
+ *
  * Function: Create Model Object ( done in Parent 'BaseControlelr' class)
  * Call model methods( database drivers), Render Views( or templates)
  *           

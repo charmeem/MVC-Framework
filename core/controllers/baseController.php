@@ -43,10 +43,7 @@
 		  // generating table name from controller_name
 	      $this->table = lcfirst($controller_name);
 		  
-		  
-		  
-		
-	   }
+      }
 	  
     
 /**
@@ -59,7 +56,7 @@
 *  2. templateManager 
 *  3. using include and php vars . See 'listAll' routine 
 *
-* @return void
+* @return $cache
 */
 public function handleController($controller_name, $options, $registry, $model)
 {
@@ -78,7 +75,7 @@ public function handleController($controller_name, $options, $registry, $model)
 	$this->view->render();
 	
 	} else {
-	    // Action is also specified 
+	    // If Action is also specified 
 	    //Generate Action View result from form submit action above
 		if (array_key_exists($options[0],$this->actions)){
 		    
@@ -89,12 +86,13 @@ public function handleController($controller_name, $options, $registry, $model)
 			 * as used dependency injection instead of STATIC.
 			 * Reason is STATIC methods cannot be MOCKED in PHUNIT tests AND
 			 * furthermore singleton requirement for database interface already implemented in 'registry' Class
-             *
-			 */ 
-        	// Moving next line to index.php for more clear dependency injection
-			//$model = $factory->modelName($controller_name, $this->table, $registry);
-            
-			//Taken from URI, directing to action method in Base Model Class and execute it in the database e.g. add(), query()
+             * 
+			 * Moving next line to index.php for more clear dependency injection
+			 * $model = $factory->modelName($controller_name, $this->table, $registry);
+             */ 
+        	
+			//Based on input URI, respective action method of base model class is invoked
+            // which intracts with the database and returns result e.g. add(), query()
 			$cache = $model->{$this->actions[$options[0]]}($this->table, $this->actionData[$options[0]]);
 			
 			// Not efficient coding..replaced by next lines..
@@ -151,7 +149,7 @@ private function addAction ()
 }
 
 /**
- * Generating listAll View WITHOUT templating, adopting Simple approach 
+ * Generating listAll View WITHOUT using TEMPLATES , adopting Simple approach 
  * 
  * @return void
  */
