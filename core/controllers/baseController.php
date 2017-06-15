@@ -158,7 +158,6 @@ private function addAction ()
 private function listAllAction ($cache, $model)
 {
 	$list = array();
-	
 	// Iterating through query result rows one by one and storing it into an array 
 	while ($ntags = $model->result($cache)) {
 	    $list[] = $ntags;
