@@ -56,19 +56,17 @@ public function render()
 {
     // Converts $vars array to individual variables
     extract($this->vars);
-	//var_dump($toto);
 	
     //Generate Controller View 
 	if (empty($this->options)) {
-    $view_filepath = APP_PATH . '/app/views/' . $this->controller_name . '/' . $this->controller_name . '.php';
-    } else {
+        $view_filepath = APP_PATH . '/../app/views/' . $this->controller_name . '/' . $this->controller_name . '.php';
+	    $css_path = APP_URI . '/public/css/' . lcfirst($this->controller_name) . '.css';
+		var_dump($css_path);
+	} else {
 	//Generate Action View
-	$view_filepath = APP_PATH . '/app/views/' . $this->controller_name . '/' . $this->options[0] . '.php';
+	$view_filepath = APP_PATH . '/../app/views/' . $this->controller_name . '/' . $this->options[0] . '.php';
     }
 
-	//Sets the path to the stylesheet for home page
-	$css_path = APP_URI . '/public/css/main.css';
- 
  if (!file_exists($view_filepath)) {
         throw new Exception("That view file doesn't exist.");
     }
@@ -93,7 +91,7 @@ public function nrender($controller, $action)
     $this->setData('CSSPath', $css_path);
 	$this->setData('actionPath', $actionPath);
     $data = $this->data;
-	$path = APP_PATH . '/app/views/' . $controller .'/' . $action. '.php';
+	$path = APP_PATH . '/../app/views/' . $controller .'/' . $action. '.php';
     include($path);
 
 }

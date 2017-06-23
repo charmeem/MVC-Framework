@@ -5,6 +5,7 @@
  <head>
   <meta charset="utf-8" />
   <title>A Virtual Campus</title>
+  <link rel = "stylesheet" href = "<?php echo $css_path; ?>" />
  </head>
  <body>
   
@@ -12,37 +13,37 @@
    <h1>Welcome to the Student section of virtual CAMPUS</h1>
     <section>
 	    <form id="add_student" method="post" action="<?php echo $add; ?>">
-		    <h2>Add Student data</h2>
-			<label>
-			    Roll Number:
-			    <input type="text" name="roll_number" />
-			</label>
-			<label>
-			    First Name:
-			    <input type="text" name="first_name" />
-			</label>
-			<label>
-			    Last Name:
+		<h3>Add Student data</h3>
+		    <div class = "form-field">	
+				<label>Roll Number:</label>
+				<input type="text" name="roll_number" />
+			</div>
+            <div class = "form-field">	
+				<label>First Name:</label>
+				<input type="text" name="first_name" />
+			</div>
+			<div class = "form-field">	
+				<label>Last Name:</label>
 			    <input type="text" name="last_name" />
-			</label>
-			<label>
-			    Current Semester:
+			</div>
+			<div class = "form-field">	
+				<label>Current Semester:</label>
 			    <input type="text" name="semester" />
-			</label>
-			<label>
-			    Major:
+			</div>
+			<div class = "form-field">	
+				<label>Major:</label>
 			    <input type="text" name="major" />
-			</label>
-			<br><br>
-			<label>
-			    Grade:
+			</div>
+			<div class = "form-field">	
+				<label>Grade:</label>
 			    <input type="text" name="grade" />
-			</label>
-			<input type="submit" Value="Enter" />
+			</div>
+			<div class = "form-field">	
+				<input id = "submit" type="submit" Value="Enter" />
+			</div>
 		</form>				
     </section>
-	<br>
-	
+	<br><br>
 	<!--Adding listAll action -->
 	<form id = "list" method = "post" action = "<?php echo $listAll ?>" >
         <label>

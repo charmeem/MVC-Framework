@@ -16,7 +16,7 @@ private $page;
 public function __construct ($registry)
 {
     $this->registry = $registry;
-    require_once APP_PATH . '/core/views/Page.php' ;
+    require_once APP_PATH . '/../core/views/Page.php' ;
 	$this->page = new page();
 }
 /**

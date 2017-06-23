@@ -140,7 +140,7 @@ private function addAction ()
 	$this->registry->getObject('template')->getPage()->addTag($this->columns[1], $this->addData[$this->columns[1]]);
 	
 	//Reading and storing the template file in content variable
-	$this->registry->getObject('template')->buildFromTemplates(APP_PATH . '/app/views/' . $this->table .'/add.php');
+	$this->registry->getObject('template')->buildFromTemplates(APP_PATH . '/../app/views/' . $this->table .'/add.php');
 	
 	// replacing tags in template file with tags , and rendering the view
     $this->registry->getObject('template')->parseOutput();
@@ -195,7 +195,7 @@ private function searchAction ($cache, $model)
 			$this->registry->getObject('template')->getPage()->addTag($k, $v);
 			}
 			//read and store template file in content variable
-			$this->registry->getObject('template')->buildFromTemplates(APP_PATH . '/app/views/' . $this->table .'/search.php');
+			$this->registry->getObject('template')->buildFromTemplates(APP_PATH . '/../app/views/' . $this->table .'/search.php');
 			
 			// replace template contents with tags, and render the view
             $this->registry->getObject('template')->parseOutput();
@@ -223,7 +223,7 @@ private function editAction ($cache, $model)
 	}
 
     //store template file to content variable
-	$this->registry->getObject('template')->buildFromTemplates(APP_PATH . '/app/views/' . $this->table .'/edit.php');
+	$this->registry->getObject('template')->buildFromTemplates(APP_PATH . '/../app/views/' . $this->table .'/edit.php');
 			
 	// replace tags with db content, and render the view
     $this->registry->getObject('template')->parseOutput();
@@ -256,7 +256,7 @@ private function updateAction ($cache, $model)
 	$this->registry->getObject('template')->getPage()->addTag('message', 'has been successfully updated');
     
 	//store template file to content variable
-	$this->registry->getObject('template')->buildFromTemplates(APP_PATH . '/app/views/' . $this->table .'/update.php');
+	$this->registry->getObject('template')->buildFromTemplates(APP_PATH . '/../app/views/' . $this->table .'/update.php');
 			
 	// replace tags with db content, and render the view
     $this->registry->getObject('template')->parseOutput();
@@ -269,7 +269,7 @@ private function deleteAction ()
 {			
     // adding tags 
 	//store template file to content variable
-	$this->registry->getObject('template')->buildFromTemplates(APP_PATH . '/app/views/' . $this->table .'/delete.php');
+	$this->registry->getObject('template')->buildFromTemplates(APP_PATH . '/../app/views/' . $this->table .'/delete.php');
 	// replace tags with db content, and render the view
     $this->registry->getObject('template')->parseOutput();
     print $this->registry->getObject('template')->getPage()->getContent();

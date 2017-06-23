@@ -1,0 +1,11 @@
+<IfModule mod_rewrite.c>
+#php_value max_execution_time 300
+RewriteEngine On
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /webapp/public/index.php [L]
+</IfModule>
+# Disable Directory Listings in this Directory and Subdirectories
+# This will hide the files from the public unless they know direct URLs
+#Options -Indexes
