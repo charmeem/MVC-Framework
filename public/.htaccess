@@ -5,8 +5,10 @@ RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 #RewriteRule ^(.*)$ /webapp/public/index.php [L]
-RewriteRule ^(.*)$ index.php  [PT,L]
+RewriteRule ^(.*)$ index.php?$1  [PT,L]
 </IfModule>
+# ?$1 after index.php is necessary to make query string/requested URL (string after ? in URL) working
+# This is called pretty URL
 # Disable Directory Listings in this Directory and Subdirectories
 # This will hide the files from the public unless they know direct URLs
 #Options -Indexes

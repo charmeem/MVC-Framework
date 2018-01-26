@@ -1,2 +1,14 @@
-Refined Version of my MVC-1 webapplication
+Redesign of my MVC-1 webapplication
 This webapp is based on MVC framework that I made from scratch
+Design:
+Virtual University:
+Controllers: Students, Teachers, Courses
+Actions: Create, Read, Update , Delete
+
+Change Log:
+- Better directory Structure for Controllers and Actions
+- Using Router class to menipukate query string or request URL
+- Uing autoloader function to avaoid using require all in index file
+- Using Namespaces
+
+
