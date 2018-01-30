@@ -2,7 +2,7 @@ Redesign of my MVC-1 webapplication
 This webapp is based on MVC framework that I made from scratch
 Design:
 Virtual University:
-Controllers: Students, Teachers, Courses
+Controllers: Students, Teachers, Courses and Home
 Actions: Create, Read, Update , Delete
 
 Change Log:
