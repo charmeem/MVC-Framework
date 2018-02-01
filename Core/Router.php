@@ -32,7 +32,7 @@ class Router
 	public function add($route, $params = [])
     {
 	    //Converting $routes into regular expressions to be added 
-		//to the routing table and to be used for matching later
+		//to the variable routing table and to be used for matching later
 	    $route = preg_replace ( '/\//', '\\/' , $route);
 		$route = preg_replace ( '/\{([a-z-]+)\}/', '(?P<\1>[a-z-]+)', $route );
 		// Could not understand "([^}]" as shown below
