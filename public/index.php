@@ -15,6 +15,8 @@
 //echo ' Requested URL is equal to "' . $_SERVER['QUERY_STRING'] .'"';
 //echo ' Request URI is equal to "' . $_SERVER['REQUEST_URI'] .'"';
 
+// Student class
+require '../App/Controllers/Students.php';
  
 /**
  * Routing
@@ -35,20 +37,22 @@ $router->add( 'course' , ['controller' => 'Courses', 'action' => 'index']);
 $router->add('{controller}/{action}');
 //$router->add('admin/{action}/{controller}');
 $router->add('{controller}/{id:\d+}/{action}');
-
 // Adding a variable route for my e-commerce site
 // Example: product/abaya/34/add-to-cart
 $router->add('{controller}/{item}/{id:\d+}/{action}');
 
 //Printing Routing TAble
+/*
 echo '<pre>';
 //var_dump($router->getRoutes());
 echo htmlspecialchars(print_r($router->getRoutes(), true));
 echo '</pre>';
+*/
 
 // MAtch the url with the routing table
 $url = $_SERVER['QUERY_STRING'] ; 
 
+/*
 if ($router->match($url)) {
     echo '<pre>';
     var_dump ($router->getMatch());
@@ -57,4 +61,8 @@ if ($router->match($url)) {
 else {
   echo " Sorry no route defined for this url :-)";
 }
+*/
+
+//Execute Controller Action in Router dispatch method
+$router->dispatch($url);
 	
