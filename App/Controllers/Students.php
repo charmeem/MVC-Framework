@@ -1,10 +1,11 @@
 <?php
 
+namespace App\Controllers;
+
 /**
  * Students class
  *
  */
- 
 class Students
 {
     /**

@@ -11,23 +11,45 @@
  * 6. Classes are loaded using auto-load function
  * 
  */
- 
-//echo ' Requested URL is equal to "' . $_SERVER['QUERY_STRING'] .'"';
-//echo ' Request URI is equal to "' . $_SERVER['REQUEST_URI'] .'"';
 
-// Student class
-require '../App/Controllers/Students.php';
+
+/**
+ * Auto-loader function
+ *
+ * Saves us from requiring all the classes at once like in mvc1 version 
+ * 
+ * Called whenever a new class object created
+ *
+ * Loads Classes without explicitly requiring them
+ *
+ */
  
+spl_autoload_register( function ($class) {
+    $root = dirname (__dir__);  // Parent directory of public directory
+	$file = $root . '/' . str_replace('\\', '/', $class) . '.php';
+	//var_dump($file);
+	if ( is_readable ( $file )) {
+	    require $file ;         // requiring class file
+	}
+	
+});
+
+
 /**
  * Routing
+ *
+ * Controller and Action are derived here from the Request URL
+ * for this a routing table with variable format using reg. expression built here
+ * 
  */
-require '../Core/Router.php';
 
-$router = new Router();
+$router = new Core\Router(); // Always use class name with namespace
 
 /**
  * Creating static and Variable Routing Table
+ *
  * route name, array [controller name, action]
+ *
  */
 $router->add( '' , ['controller' => 'Home', 'action' => 'index']); 
 $router->add( 'student' , ['controller' => 'Students', 'action' => 'index']);
@@ -65,4 +87,11 @@ else {
 
 //Execute Controller Action in Router dispatch method
 $router->dispatch($url);
+
 	
+/**
+ * NOTES
+ *
+ */
+//echo ' Requested URL is equal to "' . $_SERVER['QUERY_STRING'] .'"';
+//echo ' Request URI is equal to "' . $_SERVER['REQUEST_URI'] .'"';

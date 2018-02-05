@@ -1,5 +1,7 @@
 <?php 
 
+namespace Core;
+
 /**
  * Router class
  *
@@ -94,6 +96,7 @@ class Router
 		     //extracting controller name from stored parameters
 			 $controller = $this->params['controller'];
 			 $controller = $this->convertToStudlyCase($controller);
+			 $controller = "App\Controllers\\$controller"; // Adding namespace
 			 //create controller class
 			 if(class_exists ( $controller ) ) {
 			     $controller_object = new $controller;
