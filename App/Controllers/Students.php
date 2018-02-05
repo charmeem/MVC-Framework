@@ -15,7 +15,7 @@ class Students
      */
 	 public function listAll()
 	 {
-	    echo "You are calling listAll action within Students Controller Class";
+	    echo "You are calling listAll action method within Students Controller Class";
 	 }
 	 
 	 /**

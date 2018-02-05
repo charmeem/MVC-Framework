@@ -105,7 +105,7 @@ class Router
 					 $controller_object->$action();
 				     
 				 } else {
-				     echo ($action ." method in " . $controller . " object not found");
+				     echo (" Action method ' " . $action . "' does not exists in " . $controller ." controller class " );
 				 }
 		     } else {
 			     echo " Controller class does not exists ";
