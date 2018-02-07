@@ -6,7 +6,7 @@ namespace App\Controllers;
  * Students class
  *
  */
-class Teachers
+class Teachers extends \Core\BaseController
 {
     /**
      * Function listAll

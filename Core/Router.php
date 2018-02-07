@@ -92,6 +92,7 @@ class Router
 	 */  
 	 public function dispatch($url)
 	 { 
+	     $url = $this->removeQueryStringVariable($url);
 	     if ( $this->match($url)) {
 		     //extracting controller name from stored parameters
 			 $controller = $this->params['controller'];
@@ -116,6 +117,9 @@ class Router
 	     
 		 }else {
 		     echo "No route matched";
+			// TRying to route all mismatch to home page
+			//$home = new App\Controllers\Home();
+			//$home->index();
 		 }
     }	
 	/**
@@ -144,7 +148,22 @@ class Router
 	    return lcfirst($this->convertToStudlyCase($string));
 	}
 	
-	
+	/**
+	 * Function removeQueryStringVariable
+	 *
+	 */
+	 protected function removeQueryStringVariable($url)
+	 {
+	     if ( $url != '' ) {
+		     $parts = explode ('&', $url, 2);
+		     if (strpos($parts[0], '=') === false) {
+		         $url = $parts[0];
+		     } else {
+			     $url = '';
+			 }
+		 }
+		 return $url;
+	 }
     /**
 	 * Function getMatch
 	 * Print Matching route parameters

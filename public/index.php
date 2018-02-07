@@ -18,13 +18,14 @@
  *
  * Saves us from requiring all the classes at once like in mvc1 version 
  * 
- * Called whenever a new class object created
+ * Automatically called whenever a new class object is created
  *
  * Loads Classes without explicitly requiring them
  *
  */
  
 spl_autoload_register( function ($class) {
+
     $root = dirname (__dir__);  // Parent directory of public directory
 	$file = $root . '/' . str_replace('\\', '/', $class) . '.php';
 	//var_dump($file);
@@ -51,14 +52,17 @@ $router = new Core\Router(); // Always use class name with namespace
  * route name, array [controller name, action]
  *
  */
-$router->add( '' , ['controller' => 'Home', 'action' => 'index']); 
-$router->add( 'student' , ['controller' => 'Students', 'action' => 'index']);
-$router->add( 'teacher' , ['controller' => 'Teachers', 'action' => 'index']);
-$router->add( 'course' , ['controller' => 'Courses', 'action' => 'index']);
-// Adding variable routes
+
+ // Fixed routes
+$router->add( ''        , ['controller' => 'Home'    , 'action' => 'index']); 
+//$router->add( 'student' , ['controller' => 'Students', 'action' => 'index']);
+//$router->add( 'teacher' , ['controller' => 'Teachers', 'action' => 'index']);
+//$router->add( 'course'  , ['controller' => 'Courses' , 'action' => 'index' ]);
+
+// Variable routes
 $router->add('{controller}/{action}');
-//$router->add('admin/{action}/{controller}');
 $router->add('{controller}/{id:\d+}/{action}');
+
 // Adding a variable route for my e-commerce site
 // Example: product/abaya/34/add-to-cart
 $router->add('{controller}/{item}/{id:\d+}/{action}');
