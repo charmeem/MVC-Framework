@@ -31,4 +31,4 @@ abstract class BaseController
 	     $this->route_params = $route_params;   
 	}
 
-	}
+}

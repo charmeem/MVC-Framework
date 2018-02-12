@@ -100,7 +100,7 @@ class Router
 			 $controller = "App\Controllers\\$controller"; // Adding namespace
 			 //create controller class
 			 if(class_exists ( $controller ) ) {
-			     $controller_object = new $controller;
+			     $controller_object = new $controller($this->params); //passing route params to BaseController constructor
 				 $action = $this->params['action'];
 				 $action = $this->convertToCamelCase($action);
 			     // check if action method exists and is not private

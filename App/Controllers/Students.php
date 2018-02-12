@@ -40,7 +40,7 @@ class Students extends \Core\BaseController
 	 {
 	     echo " You are calling edit action of student controller";
 		 echo '<p> Route Parameters : <pre>' . 
-		     htmlspecialchars(print_r($route_params, true)) . '</pre></p>';
+		     htmlspecialchars(print_r($this->route_params, true)) . '</pre></p>';
 		 
 	 }
 }
