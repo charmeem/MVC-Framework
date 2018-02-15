@@ -66,9 +66,13 @@ class Router
     {
 	//var_dump($url);
 	
+	
+	
          foreach ($this->routes as $route => $params) {
+		 //var_dump($this->routes);
 		     //Comparing url request with the reg_exp of routes listed in routing table 
              if (preg_match($route, $url, $matches)) {	
+			 //var_dump($matches);
 			     //creating parameter array of match array 
 		 	     foreach ($matches as $key => $match) {
 			         if (is_string($key)) {

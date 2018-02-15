@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controllers;
+use \Core\View;
 
 /**
  * Students class
@@ -8,6 +9,28 @@ namespace App\Controllers;
  */
 class Students extends \Core\BaseController
 {
+
+    /**
+     * Default Action function
+	 * render default student page view
+	 * @return void
+     */
+	 public function index()
+	 {
+	    /*
+		echo "You are calling index action  within Student Controller";
+		View::render('Home/index.php', [
+		              'name' => 'Muhamamd Mubashir Mufti',
+					  'profession' => 'Software Developer']
+		 );
+		 */
+		 
+		View::renderTemplate('Student/index.php', [
+		              'name' => 'Muhamamd Mubashir Mufti',
+					  'profession' => 'Software Developer']
+		 );
+	 }
+	 
     /**
      * Function listStudents
 	 * List students (R of CRUD)

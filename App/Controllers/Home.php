@@ -9,14 +9,25 @@ use \Core\View;
 class Home extends \Core\BaseController
 {
     /**
-     * Function index
-	 *
+     * Default Action function
+	 * Render default Home View
 	 * @return void
      */
 	 public function index()
 	 {
-	    echo "You are calling index action  within Home Controller";
-		View::render('Home/index.php');
+	    /*
+		echo "You are calling index action  within Home Controller";
+		View::render('Home/index.php', [
+		              'name' => 'Muhamamd Mubashir Mufti',
+					  'profession' => 'Software Developer']
+		 );
+		 */
+		 
+		View::renderTemplate('Home/index.php', [
+		              'student_section' => '/webapp/student',
+					  'teacher_section' => 'Software Developer',
+					  'course_section'  => '' ]
+		 );
 	 }
 	 
 }

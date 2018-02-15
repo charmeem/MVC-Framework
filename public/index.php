@@ -12,7 +12,13 @@
  * 
  */
 
-
+/**
+ * Twig
+ */
+ require_once dirname(__dir__) . '/vendor/autoload.php';
+ //Twig_Autoloader::register();
+ 
+ 
 /**
  * Auto-loader function
  *
@@ -53,9 +59,9 @@ $router = new Core\Router(); // Always use class name with namespace
  *
  */
 
- // Fixed routes
+ // Fixed routes with default actions
 $router->add( ''        , ['controller' => 'Home'    , 'action' => 'index']); 
-//$router->add( 'student' , ['controller' => 'Students', 'action' => 'index']);
+$router->add( 'student' , ['controller' => 'Students', 'action' => 'index']);
 //$router->add( 'teacher' , ['controller' => 'Teachers', 'action' => 'index']);
 //$router->add( 'course'  , ['controller' => 'Courses' , 'action' => 'index' ]);
 
