@@ -22,12 +22,15 @@ class Home extends \Core\BaseController
 					  'profession' => 'Software Developer']
 		 );
 		 */
-		 
+		$public_path = 'http://' . $_SERVER['SERVER_NAME'] . dirname($_SERVER['SCRIPT_NAME']);
+		$css_path = $public_path . '/css/home.css';
+		
 		View::renderTemplate('Home/index.php', [
 		              'student_section' => '/webapp/student',
 					  'teacher_section' => 'Software Developer',
 					  'course_section'  => '',
-                      'css_path'        => '../../../public/css/home.css'					  ]
+                      'css_path'        => $css_path
+    				  ]
 		 );
 	 }
 	 
