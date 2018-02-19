@@ -5,7 +5,7 @@
 <head>
 <meta charset="utf-8" />
 <title>A Virtual Campus</title>
-<link rel = "stylesheet" href = "<?php echo $css_path; ?>" />
+<link rel = "stylesheet" href = "{{ css_path }}" />
 </head>
 <body>
   

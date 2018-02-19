@@ -1,0 +1,82 @@
+* Basic Font Styles
+----------------------------------------------------------------------------*/
+body {
+    font: 18px/24px 'NewsGothicNo.2W01-Roman';
+    color: #1f1b0c;
+    letter-spacing: .06em;
+}
+h1 {
+    font-family: 'Cooper Black W01';
+    font-weight: normal;
+}
+h1 {
+    margin: 0;
+    color: #fbf7e7;
+    font-size: 6em;
+    line-height: 1em;
+    letter-spacing: -.1em;
+}
+a {
+font-family: 'NewsGothicNo.2W01-Mediu 710407';
+color: #e06f00;
+text-decoration: none;
+}
+a:active,a:hover,a:focus {
+text-decoration: underline;
+outline: none;
+}
+.tagline {
+font-family: 'NewsGothicNo.2W01-Light 710401';
+font-size: 1.1em;
+line-height: 1em;
+color: #fbf7e7;
+letter-spacing: .12em;
+}
+
+footer  {
+font-family: 'NewsGothicNo.2W01-Light 710401';
+font-size: .75em;
+line-height: 1em;
+letter-spacing: .04em;
+color: #fbf7e7;
+}
+
+/* Layout
+----------------------------------------------------------------------------*/
+html { background-color: #fbf7e7; }
+body { margin: 0; } 
+header,footer {
+	overflow: hidden;
+	background: #1f1b0c;
+	margin: 0;
+	padding: 0em;
+	text-align: center;
+}
+header {
+margin-bottom: 3em;
+pdadding: 3em 0 2em;
+}
+header h1,header p {
+width: 960px;
+margin: 0 auto;
+padding: 0;
+}
+header h1 { margin-bottom: .25em; }
+footer { margin-top: 5em; }
+
+/* Basic Font Styles
+----------------------------------------------------------------------------*/
+a {
+font-family: 'Cooper Black W01';
+color: #fbf7e7;
+background-color: orange;
+border-radius: 6px;
+border: none;
+padding: 3em;
+display:inline-block;
+margin-left:.75em;
+font-size: 1.75em;
+line-height: 1em;
+letter-spacing: -.08em;
+text-shadow: 0 0 10px rgba(31, 27, 12, .3);
+}

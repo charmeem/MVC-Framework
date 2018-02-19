@@ -103,7 +103,7 @@ class Router
 			 //create controller class
 			 if(class_exists ( $controller ) ) {
 			     $controller_object = new $controller($this->params); //passing route params to BaseController constructor and also invoke autoloader in index.php
-				 var_dump($this->params);
+				 //var_dump($this->params);
 				 $action = $this->params['action'];
 				 //var_dump($action);
 				 $action = $this->convertToCamelCase($action);
