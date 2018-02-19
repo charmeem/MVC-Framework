@@ -62,8 +62,8 @@ $router = new Core\Router(); // Always use class name with namespace
  // Fixed routes with default actions
 $router->add( ''        , ['controller' => 'Home'    , 'action' => 'index']); 
 $router->add( 'student' , ['controller' => 'Students', 'action' => 'index']);
-//$router->add( 'teacher' , ['controller' => 'Teachers', 'action' => 'index']);
-//$router->add( 'course'  , ['controller' => 'Courses' , 'action' => 'index' ]);
+$router->add( 'teacher' , ['controller' => 'Teachers', 'action' => 'index']);
+$router->add( 'course'  , ['controller' => 'Courses' , 'action' => 'index' ]);
 
 // Variable routes
 $router->add('{controller}/{action}');

@@ -7,8 +7,8 @@ Actions: Create, Read, Update , Delete
 
 Change Log:
 - Better directory Structure for Controllers and Actions
-- Using Router class to menipukate query string or request URL
-- Uing autoloader function to avaoid using require all in index file
+- Using Router class to menipulate query string or request URL
+- Using autoloader function to avaoid using require all in index file
 - Using Namespaces
-
+- Utilizing Twig Template engine
 

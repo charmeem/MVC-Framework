@@ -66,9 +66,7 @@ class Router
     {
 	//var_dump($url);
 	
-	
-	
-         foreach ($this->routes as $route => $params) {
+	    foreach ($this->routes as $route => $params) {
 		 //var_dump($this->routes);
 		     //Comparing url request with the reg_exp of routes listed in routing table 
              if (preg_match($route, $url, $matches)) {	
@@ -104,8 +102,10 @@ class Router
 			 $controller = "App\Controllers\\$controller"; // Adding namespace
 			 //create controller class
 			 if(class_exists ( $controller ) ) {
-			     $controller_object = new $controller($this->params); //passing route params to BaseController constructor
+			     $controller_object = new $controller($this->params); //passing route params to BaseController constructor and also invoke autoloader in index.php
+				 var_dump($this->params);
 				 $action = $this->params['action'];
+				 //var_dump($action);
 				 $action = $this->convertToCamelCase($action);
 			     // check if action method exists and is not private
 				 if(is_callable([$controller_object, $action])) {
@@ -113,19 +113,38 @@ class Router
 					 $controller_object->$action();
 				     
 				 } else {
+				     //$this->dafaults();
 				     echo (" Action method ' " . $action . "' does not exists in " . $controller ." controller class " );
 				 }
 		     } else {
+			     //return $this->dafaults();
 			     echo " Controller class does not exists ";
 			 }
 	     
 		 }else {
+		    // dafaults();
 		     echo "No route matched";
 			// TRying to route all mismatch to home page
 			//$home = new App\Controllers\Home();
 			//$home->index();
 		 }
+		 
     }	
+	
+	/**
+	 * defaults function
+	 *
+	 * Triggers in case of invalid url/controller or action
+	 */
+	 function defaults() {
+	     $default_params = array("controller" => "Home",
+                          	"action"    => "index"
+                           );
+		 $controller_object = new $controller($default_params);				   
+	     $action = $default_params['action'];
+		 $controller_object->$action();
+	 }
+	 
 	/**
 	 * Function convertToStudlycase
 	 * converts action strings to studlyCase and removes hypen

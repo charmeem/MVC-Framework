@@ -26,7 +26,8 @@ class Home extends \Core\BaseController
 		View::renderTemplate('Home/index.php', [
 		              'student_section' => '/webapp/student',
 					  'teacher_section' => 'Software Developer',
-					  'course_section'  => '' ]
+					  'course_section'  => ''
+                      'css_path'        => '					  ]
 		 );
 	 }
 	 
