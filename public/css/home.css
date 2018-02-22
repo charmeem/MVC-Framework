@@ -68,7 +68,7 @@ footer { margin-top: 5em; }
 ----------------------------------------------------------------------------*/
 .wrap {
     display: flex;
-	justify-content: space-between;
+	justify-content: center;
 }
 a {
 font-family: 'Cooper Black W01';

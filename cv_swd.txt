@@ -1,0 +1,22 @@
+My path of software learning started around 2012 when my Company's business in Pakistan was on the decline. Forseeing the future of Telecom field where I spent 23 years  I decided to switch career to software development in Septempber 2013.
+Opted for self learning, I initialy started from Java ( android development) for very short period of time and later moved to html/css, javascript and jquery.
+This brought me to the  path of web development, php and finaly to wordpress. I spent lot of time learning and developing wordpress custom theme and plugins. Then i applied my html/css, JS and Jquery skills to wordpress. Later one friend helped me to learn mvc based php web application. I further consolidated my learning through video courses from udemy, Lynda and tuts+.
+I am also maintaining git repositories of my work.
+
+- Currently doing udemy training course on python.
+  https://github.com/charmeem/python/tree/master/exercises
+
+- Also creating a php based MVC Web application.
+  https://github.com/charmeem/my-mvc-frameworks/tree/mvc2
+
+- Created PSD website mocks on crowd source websites.
+
+- currently converting my own website from PSD to HTML and eventualy to Wordpress
+  https://github.com/charmeem/wordpress/tree/whoisourlord
+  
+- Created wordpress plugin
+  https://github.com/charmeem/wordpress/tree/colorizer
+
+- Working on building my Custom Wordpress theme
+  https://github.com/charmeem/wordpress/tree/zindagi
+
