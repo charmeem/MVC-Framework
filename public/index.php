@@ -44,7 +44,7 @@ spl_autoload_register( function ($class) {
 
 
 /**
- * Routing
+ * Routing table
  *
  * Controller and Action are derived here from the Request URL
  * for this a routing table with variable format using reg. expression built here

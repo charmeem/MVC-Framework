@@ -1,0 +1,18 @@
+
+{% extends "base.html" %}
+
+{% block title %}A Virtual Campus{% endblock %}
+
+{%block body %}
+
+	<h1>Welcome to virtual CAMPUS</h1>
+	<p class="tagline">
+	A Database for Teachers, Students and Courses.
+	</p><!--/.tagline-->
+	</header>
+	<div class = "wrap">
+		<a href = "{{ student_section }}"> Student Section </a>
+		<a href = "{{ teacher_section }}"> Teacher Section </a>
+		<a href = "{{ course_section }}">  Course Section </a>
+	</div>  
+{% endblock %}

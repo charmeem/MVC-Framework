@@ -2,9 +2,11 @@
 
 namespace App\Controllers;
 use \Core\View;
+use \App\Models\Student;
 
 /**
- * Students class
+ * defining Students class as controller
+ * functions as actions
  *
  */
 class Students extends \Core\BaseController
@@ -13,6 +15,8 @@ class Students extends \Core\BaseController
     /**
      * Default Action function
 	 * render default student page view
+	 * Called from Home Controller
+	 *
 	 * @return void
      */
 	 public function index()
@@ -25,9 +29,9 @@ class Students extends \Core\BaseController
 		 );
 		 */
 		 
-		View::renderTemplate('Student/index.php', [
-		              'name' => 'Muhamamd Mubashir Mufti',
-					  'profession' => 'Software Developer']
+		View::renderTemplate('Student/index.html', [
+		              'listall' => '/webapp/students/list-all', //webapp/controller/action
+					  'add' => '/webapp/students/list-all']
 		 );
 	 }
 	 
@@ -39,7 +43,14 @@ class Students extends \Core\BaseController
      */
 	 public function listAll()
 	 {
-	    echo "You are calling listAll action method within Students Controller Class";
+	    //echo "You are calling listAll action method within Students Controller Class";
+		
+		$lists = Student::listAll();   //rendering Model, student static method
+		
+		View::renderTemplate('Student/listall.html', [             // rendering View
+		              'list' => $lists
+    	  ]);
+		
 	 }
 	 
 	 /**
