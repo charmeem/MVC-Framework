@@ -31,7 +31,8 @@ class Students extends \Core\BaseController
 		 
 		View::renderTemplate('Student/index.html', [
 		              'listall' => '/webapp/students/list-all', //webapp/controller/action
-					  'add' => '/webapp/students/list-all']
+					  'add' => '/webapp/students/add-student',
+					  'search' => '/webapp/students/search-student']
 		 );
 	 }
 	 
@@ -61,20 +62,30 @@ class Students extends \Core\BaseController
      */
 	 public function addStudent()
 	 {
-	    echo "You are calling addStudent action of Students controller class";
+	   //echo "You are calling addStudent action method within Students Controller Class";
+		
+		$result = Student::addStudent();   //rendering Model, student static method
+		
+		View::renderTemplate('Student/add.html', [             // rendering View
+		              'add' => $result
+    	  ]);
 	 }
 	 
 	 /**
-     * Function editStudent
-	 * add students (C of CRUD)
+     * Function searchStudent
+	 * search students (R of CRUD)
      *
 	 * @return void
      */
-	 public function editStudent()
+	 public function searchStudent()
 	 {
-	     echo " You are calling edit action of student controller";
-		 echo '<p> Route Parameters : <pre>' . 
-		     htmlspecialchars(print_r($this->route_params, true)) . '</pre></p>';
+	     //echo "You are calling searchStudent action method within Students Controller Class";
+		
+		$result = Student::searchStudent();   //rendering Model, student static method
+		
+		View::renderTemplate('Student/searchstudent.html', [             // rendering View
+		              'search' => $result
+    	  ]);
 		 
 	 }
 }

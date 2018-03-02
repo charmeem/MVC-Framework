@@ -6,8 +6,16 @@
 {%block body %}
 
 	 <h1>Welcome to the Student section of virtual CAMPUS</h1>
-    <section>
-	    <form id="add_student" method="post" action="<?php echo $add; ?>">
+   
+     <!--Adding listAll action -->
+	 <form id = "list" method = "post" action = "{{ listall }}" >
+        <label>
+		  <input type = "submit" name = "listAll" value = "List All Records">
+        </label>
+     </form>	
+     <br>
+   
+	    <form id="add_student" method="post" action="{{ add }}">
 		<h3>Add Student data</h3>
 		    <div class = "form-field">	
 				<label>Roll Number:</label>
@@ -37,19 +45,13 @@
 				<input id = "submit" type="submit" Value="Enter" />
 			</div>
 		</form>				
-    </section>
+   
 	<br><br>
-	<!--Adding listAll action -->
-	<form id = "list" method = "post" action = "{{ listall }}" >
-        <label>
-		  <input type = "submit" name = "listAll" value = "List All Records">
-        </label>
-    </form>	
-    <br>
+	
 	
 	<!--Adding Search action -->
 	<section>
-	  <form id = "search" method = "post" action = "<?php echo $search ?>" >
+	  <form id = "search" method = "post" action = "{{ search }}" >
         <label>
 		  Search Student :
 		  <input type = "text" name = "student_search" >
